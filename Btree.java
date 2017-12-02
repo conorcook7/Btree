@@ -1,21 +1,23 @@
+public class BTree {
 
-public class Btree {
-
-	private treeNode root, current, next;
+	BTreeNode root;
 	
-	public Btree(boolean cache, int sizeCache, ){
+	
+	public BTree(){
 		
 	}
-
-	private class treeNode {
-		int key;
-
-		public treeNode() {
-
+	
+	public class BTreeNode{
+		private int n;			//number of keys stored in the node
+		private int [] keys;	// references to keys stored in node
+		private boolean leaf;
+		private BTreeNode [] Children;	// reference to child nodes 
+		
+		public BTreeNode( BTreeNode parent, int maxKeysize, int maxChildrenSize ){
+			
+			
 		}
-
-		public treeNode(int key) {
-
-		}
+		
 	}
+	
 }
