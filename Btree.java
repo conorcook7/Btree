@@ -21,4 +21,27 @@ public class BTree {
 		
 	}
 	
+	public class treeObject{
+		private long key;
+		private int num; //frequency
+		
+		public long getKey(){
+			return key;
+		}
+		
+		public treeObject(long input){
+			this.key = input;
+		}
+		
+		public int compare(treeObject obj){
+			if(this.getKey() > obj.getKey()){
+				return 1;
+			}else if(this.getKey() < obj.getKey()){
+				return -1;
+			}else{
+				return 0;
+			}
+		}
+	}
+	
 }
