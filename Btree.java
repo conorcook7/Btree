@@ -7,21 +7,37 @@ public class BTree {
 		
 	}
 	
-	public class BTreeNode implements Comparable<BtreeNode>{
+	private class BTreeNode implements Comparable<BtreeNode>{
 		private int n;			//number of keys stored in the node
 		private int [] keys;	// references to keys stored in node
 		private BTreeNode [] Children;	// reference to child nodes 
 		private boolean leaf, root;
-		private int maxKeys, parent, value;
+		private int maxKeys, parent, value, index;
 		
-		public BTreeNode( int value, BTreeNode parent, int maxKeys, int maxChildrenSize ){
+		public BTreeNode( int value, int index, boolean root, boolean leaf){
 			this.value = value;
+			this.index = index;
+			this.leaf = leaf;
+			this.root = root;
+			
+			if(this.root == true){
+				parent = -1;
+			}
+			
+			maxKeys = (2*value -1);
 			
 		}
 		
+		public boolean atMax(){
+		}
+		
+		public int compareTo(BtreeNode obj){ //from the comparable api
+			int retVal = index-obj.index
+			return retVal;
+		}
 	}
 	
-	public class treeObject{
+	private class treeObject{
 		private long key;
 		private int num; //frequency
 		
