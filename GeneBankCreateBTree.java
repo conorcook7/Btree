@@ -93,9 +93,9 @@ public class GeneBankCreateBTree {
 					e.printStackTrace();
 				}	
 				if(cache == 0){
-					System.out.println("no cashe\n");
+					System.out.println("no debug\n");
 				}else if(debugLvl == 1){
-					System.out.println("with cashe\n");
+					System.out.println("with debug\n");
 				}else{
 					System.out.println("arg 1 incompatible");
 					System.exit(1);
@@ -112,6 +112,16 @@ public class GeneBankCreateBTree {
 	public static void createBtree(int cache, int degree, File file, int seqLength, int cacheSize, int debugLvl){
 	
 		BTree tree = new BTree();
+		Scanner scanFile = new Scanner(file);
+		
+		System.out.println("tree time");
+		
+		while (scanFile.findInLine("ORIGIN")){
+			scanFile.nextLine();
+			System.out.println("tree time");
+		}
+		
+		System.out.prinln(scanFile.next());
 		
 	}
 }
