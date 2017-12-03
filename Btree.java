@@ -1,3 +1,4 @@
+
 public class BTree {
 
 	BTreeNode root;
@@ -7,7 +8,7 @@ public class BTree {
 		
 	}
 	
-	private class BTreeNode implements Comparable<BtreeNode>{
+	private class BTreeNode implements Comparable<BTreeNode>{
 		private int n;			//number of keys stored in the node
 		private int [] keys;	// references to keys stored in node
 		private BTreeNode [] Children;	// reference to child nodes 
@@ -29,10 +30,11 @@ public class BTree {
 		}
 		
 		public boolean atMax(){
+			return leaf;
 		}
 		
-		public int compareTo(BtreeNode obj){ //from the comparable api
-			int retVal = index-obj.index
+		public int compareTo(BTreeNode obj){ //from the comparable api
+			int retVal = index-obj.index;
 			return retVal;
 		}
 	}
@@ -63,5 +65,4 @@ public class BTree {
 			}
 		}
 	}
-	
 }
