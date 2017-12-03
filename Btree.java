@@ -7,7 +7,7 @@ public class BTree {
 		
 	}
 	
-	public class BTreeNode{
+	public class BTreeNode implements Comparable<BtreeNode>{
 		private int n;			//number of keys stored in the node
 		private int [] keys;	// references to keys stored in node
 		private BTreeNode [] Children;	// reference to child nodes 
@@ -33,10 +33,14 @@ public class BTree {
 			this.key = input;
 		}
 		
-		public int compare(treeObject obj){
-			if(this.getKey() > obj.getKey()){
+		public void duplicate(){
+			num++;
+		}
+		
+		public int compareTo(treeObject obj){ //from the comparable api
+			if(this.key > obj.key){
 				return 1;
-			}else if(this.getKey() < obj.getKey()){
+			}else if(this.key < obj.key){
 				return -1;
 			}else{
 				return 0;
