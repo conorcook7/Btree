@@ -14,7 +14,7 @@ public class BTree {
 		private BTreeNode [] Children;	// reference to child nodes 
 		private boolean leaf, root;
 		private int maxKeys, parent, value, index;
-		
+	
 		public BTreeNode( int value, int index, boolean root, boolean leaf){
 			this.value = value;
 			this.index = index;
