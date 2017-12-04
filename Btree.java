@@ -1,21 +1,51 @@
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class BTree {
 
-	BTreeNode root;
+	private BTreeNode root, next;
+	private int numNodes;
+	private int tVar;  //t variable for equations
+	private boolean cache; //boolean to use cache or not
+	private RandomAccessFile write;
+	
+	
 
-	public BTree(boolean cache, int cacheSize) {
-
+	public BTree(int t, boolean cache, int cacheSize) {
+		tVar = t;
+		//TODO
 	}
 
+	public int BtreeSearch(int x, int k){
+		return 0;
+		//TODO
+	}
+	
+	public void BtreeSplitChild(int x, int i){
+		//TODO
+	}
+	
+	public void BtreeInsert(int T, int k){
+		//TODO
+	}
+	
+	public void BtreeInsertNonFull(int x, int k){
+		//TODO
+	}
+	
+	
+	
+	
+	
+	
+	
 	private class BTreeNode implements Comparable<BTreeNode> {
 		private boolean leaf, root;
 		private int maxKeys, parent, tVal, index;
-		private ArrayList<Integer> childNodes; // references to the children
-													// nodes in a dynamic
-													// arraylist
-		private ArrayList<treeObject> keyNodes; // all keys stored in a dynamic
-												// arraylist
+		// references to the children nodes in a dynamic arraylist
+		private ArrayList<Integer> childNodes;
+		// all keys stored in a dynamic arraylist
+		private ArrayList<treeObject> keyNodes;
 
 		public BTreeNode(int tInput, int index, boolean root, boolean leaf) {
 			this.tVal = tInput;
@@ -65,6 +95,7 @@ public class BTree {
 		}
 
 		public int compareTo(treeObject obj) { // from the comparable api
+
 			if (this.key > obj.key) {
 				return 1;
 			} else if (this.key < obj.key) {
