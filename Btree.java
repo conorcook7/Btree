@@ -6,13 +6,20 @@ public class BTree {
 	private BTreeNode root, next;
 	private int numNodes;
 	private int tVar;  //t variable for equations
-	private boolean cache; //boolean to use cache or not
+	private boolean useCache; //boolean to use cache or not
 	private RandomAccessFile write;
+	//private Cache cache;   this is to implement the cache
 	
 	
 
 	public BTree(int t, boolean cache, int cacheSize) {
 		tVar = t;
+		root = new BtreeNode(tVar, 0, true ,true);
+		numNodes = 1;
+		
+		if(useCache == true){
+			//TODO
+		}
 		//TODO
 	}
 
