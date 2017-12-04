@@ -9,23 +9,24 @@ public class BTree {
 	}
 	
 	private class BTreeNode implements Comparable<BTreeNode>{
-		private int n;			//number of keys stored in the node
-		private int [] keys;	// references to keys stored in node
-		private BTreeNode [] Children;	// reference to child nodes 
 		private boolean leaf, root;
-		private int maxKeys, parent, value, index;
+		private int maxKeys, parent, tVal, index;
+		private ArrayList<Integer> childrenNodes;	// references to the children nodes in a dynamic arraylist
+		private ArrayList<treeObject> keyNodes;	   //all keys stored in a dynamic arraylist
 	
-		public BTreeNode( int value, int index, boolean root, boolean leaf){
-			this.value = value;
-			this.index = index;
+		public BTreeNode( int tInput, int index, boolean root, boolean leaf){
+			this.tVal = tInput;
 			this.leaf = leaf;
 			this.root = root;
+			this.index = index;
 			
 			if(this.root == true){
 				parent = -1;
 			}
 			
-			maxKeys = (2*value -1);
+			maxKeys = (2*tVal -1);
+			keyNodes = new ArrayList<treeObject>(2*tVal-1);
+			childrenNodes = new ArrayList<Integer>(2*tVal);
 			
 		}
 		
