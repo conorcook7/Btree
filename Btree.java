@@ -3,23 +3,22 @@ import java.util.ArrayList;
 
 public class BTree {
 
-	private BTreeNode root, next;
-	private int numNodes;
+	private BTreeNode root, nextNode, curNode;
+	private int numNodes, seqL;
+	private long sequence;
 	private int tVar;  //t variable for equations
-	private boolean useCache; //boolean to use cache or not
 	private RandomAccessFile write;
-	//private Cache cache;   this is to implement the cache
 	
 	
 
-	public BTree(int t, boolean cache, int cacheSize) {
+	public BTree(int t, int seqLength, long seq) {
+		seqL = seqLength;
+		sequence = seq;
 		tVar = t;
-		root = new BtreeNode(tVar, 0, true ,true);
+		root = new BTreeNode(tVar, 0, true ,true);
 		numNodes = 1;
 		
-		if(useCache == true){
-			//TODO
-		}
+		
 		//TODO
 	}
 
@@ -32,11 +31,21 @@ public class BTree {
 		//TODO
 	}
 	
-	public void BtreeInsert(int T, int k){
-		//TODO
+	public void BtreeInsert(long k){
+		if(root.atMax()){
+			nextNode = root;
+			root = new BTreeNode(tVar, numNodes++, false, true);
+			root.childNodes.add(0, nextNode.getIndex());
+			nextNode.setParent(root.getIndex());
+			nextNode.setRoot(false);
+			//BtreeSplitChild(root, nextNode, 0);
+			//BtreeInsertNonfull(new treeObject(k));
+		}else{
+			//BtreeInsertNonfull(new treeObject(k));
+		}
 	}
 	
-	public void BtreeInsertNonFull(int x, int k){
+	private void BtreeInsertNonfull(int x, int k){
 		//TODO
 	}
 	
@@ -68,6 +77,22 @@ public class BTree {
 			keyNodes = new ArrayList<treeObject>(2 * tVal - 1);
 			childNodes = new ArrayList<Integer>(2 * tVal);
 
+		}
+		
+		public int getIndex(){
+			return index;
+		}
+		
+		public int getParent(){
+			return parent;
+		}
+		
+		public void setParent(int val){
+			parent = val;
+		}
+		
+		public void setRoot(boolean val){
+			root = val;
 		}
 
 		public boolean atMax() {
