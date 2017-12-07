@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.lang.*;
 
 public class GeneBankCreateBTree {
 	
@@ -105,6 +106,8 @@ public class GeneBankCreateBTree {
 			
 		}
 		
+		System.out.println("end of parse");
+		
 		createBtree(cache, degree, myFile, seqLength, cacheSize, debugLvl);
 		
 	}
@@ -112,16 +115,37 @@ public class GeneBankCreateBTree {
 	public static void createBtree(int cache, int degree, File file, int seqLength, int cacheSize, int debugLvl){
 	
 		BTree tree = new BTree();
+		try{
 		Scanner scanFile = new Scanner(file);
+		StringBuilder SB;
+		Scanner otherScanner;
 		
 		System.out.println("tree time");
 		
-		while (scanFile.findInLine("ORIGIN")){
-			scanFile.nextLine();
-			System.out.println("tree time");
+		String curVal = scanFile.next();
+		
+		while (scanFile.hasNext()){
+			if( curVal.equals("ORIGIN") ){
+				System.out.println("Origin found");
+				SB = new StringBuilder();
+				
+				while(!curVal.equals("//") && !curVal.equals("N")){
+					scanFile.next();
+					System.out.println("appending string");
+					SB.append(scanFile.nextLine());
+					otherScanner = scanFile;
+					curVal = otherScanner.next();
+					System.out.println("Current value = " + curVal);
+				}
+				System.out.println("Printing sequence");
+				System.out.println(SB.toString());
+			}
+			if(scanFile.hasNext()) curVal = scanFile.next();
 		}
 		
-		System.out.prinln(scanFile.next());
 		
+		scanFile.close();
+		}catch(FileNotFoundException e){
+		}
 	}
 }
