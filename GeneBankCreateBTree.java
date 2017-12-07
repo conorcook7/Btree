@@ -39,9 +39,9 @@ public class GeneBankCreateBTree {
 					System.exit(1);
 				}	
 				if(cache == 0){
-					System.out.println("no cashe\n");
+					System.out.println("no cashe");
 				}else if(cache == 1){
-					System.out.println("with cashe\n");
+					System.out.println("with cashe");
 				}else{
 					System.out.println("arg 1 incompatible");
 					System.exit(1);
@@ -94,9 +94,9 @@ public class GeneBankCreateBTree {
 					e.printStackTrace();
 				}	
 				if(cache == 0){
-					System.out.println("no debug\n");
+					System.out.println("no debug");
 				}else if(debugLvl == 1){
-					System.out.println("with debug\n");
+					System.out.println("with debug");
 				}else{
 					System.out.println("arg 1 incompatible");
 					System.exit(1);
@@ -108,11 +108,11 @@ public class GeneBankCreateBTree {
 		
 		System.out.println("end of parse");
 		
-		createBtree(cache, degree, myFile, seqLength, cacheSize, debugLvl);
+		parseFile(cache, degree, myFile, seqLength, cacheSize, debugLvl);
 		
 	}
 
-	public static void createBtree(int cache, int degree, File file, int seqLength, int cacheSize, int debugLvl){
+	public static void parseFile(int cache, int degree, File file, int seqLength, int cacheSize, int debugLvl){
 	
 		BTree tree = new BTree();
 		try{
@@ -125,20 +125,21 @@ public class GeneBankCreateBTree {
 		String curVal = scanFile.next();
 		
 		while (scanFile.hasNext()){
-			if( curVal.equals("ORIGIN") ){
+			if( curVal.equals("ORIGIN") ) { 	//finds the key origin indicating the beginning of the dna sequence 
 				System.out.println("Origin found");
 				SB = new StringBuilder();
 				
 				while(!curVal.equals("//") && !curVal.equals("N")){
-					scanFile.next();
-					System.out.println("appending string");
-					SB.append(scanFile.nextLine());
+					scanFile.next(); 	// removes the in at the beginning of each line in the sequence
+					
+					SB.append(scanFile.nextLine()); // adds line to the string representing the DNA sequence
 					otherScanner = scanFile;
 					curVal = otherScanner.next();
-					System.out.println("Current value = " + curVal);
+					
 				}
-				System.out.println("Printing sequence");
-				System.out.println(SB.toString());
+				String dnaSeq = new String(SB);
+				dnaSeq = dnaSeq.replaceAll("\\s+",""); // removes spaces from the string that represents a DNA sequence
+				parseToSubSequence(dnaSeq, seqLength);
 			}
 			if(scanFile.hasNext()) curVal = scanFile.next();
 		}
@@ -148,4 +149,19 @@ public class GeneBankCreateBTree {
 		}catch(FileNotFoundException e){
 		}
 	}
+	
+	public static void parseToSubSequence(String seq, int seqLength){
+		
+		StringBuilder SB = new StringBuilder();
+		
+		for(int i = 0; i < seq.length() - seqLength; i++ ){
+			for(int j = i; j < i + seqLength; j++ ){
+				SB.append(seq.charAt(j));
+			}
+			System.out.println(SB.toString());
+			SB.setLength(0);
+		}
+		
+	}
+
 }
