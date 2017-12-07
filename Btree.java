@@ -2,7 +2,6 @@ import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
-///////////////////////
 /**
  * 
  * @author conor cook, zach garner, micheal boyle
