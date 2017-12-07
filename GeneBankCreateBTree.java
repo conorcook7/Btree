@@ -114,7 +114,7 @@ public class GeneBankCreateBTree {
 
 	public static void createBtree(int cache, int degree, File file, int seqLength, int cacheSize, int debugLvl){
 	
-		BTree tree = new BTree();
+		BTree tree = new BTree(degree, seqLength, sequence );
 		try{
 		Scanner scanFile = new Scanner(file);
 		StringBuilder SB;
