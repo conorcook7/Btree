@@ -1,5 +1,7 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
+import java.nio.file.FileAlreadyExistsException;
 
 
 
@@ -7,53 +9,88 @@ import java.io.RandomAccessFile;
 public class TestTree {
 
 	
-	private int degree;
 	private RandomAccessFile file;
-	private Node root;
 	
 	
-	public TestTree(int degree, String path) {
-		this.degree = degree;
+	public TestTree(String path) throws FileNotFoundException {
 		File f = new File(path);
+		this.file = new RandomAccessFile(f, "rw");
+	}
+	
+	public TestTree(String path, int degree) throws FileAlreadyExistsException {
+		File f = new File(path);
+		if (f.isFile()) {
+		    throw new FileAlreadyExistsException("File already exists");         
+		}
 		try {
 			f.createNewFile();
 			this.file = new RandomAccessFile(f, "rw");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.root = getRoot();
+		setDegree(degree);
 	}
 	
 	
-	public void add(String key) {
-		
+	public void insert(String key) {
+		Sequence s = search(key);
+		if (s != null)
+			s.duplicate();
+	    else {
+	    	
+	    }
 	}
 	
-	public Sequence findNode(String key) {
-		return null;
-	}	
-	
-	
-	private class Node {
-		
-		private int index;
-		private Node parent;
-		private Node[] children;
-		private Sequence[] elems;
-		
-	}
-	
-	
-	private Node readNode(int i) {
+	public Sequence search(String key) {
 		return null;
 	}
 	
-	private void writeNode(Node n) {
+	
+	public class Node {
+		
+		public int index;
+		public Node parent;
+		public Node[] children;
+		public Sequence[] elems;
+		
+		
+		public Node(int index, Node parent, Node[] children, Sequence[] elems) {
+			this.index = index;
+			this.parent = parent;
+			this.children = children;
+			this.elems = elems;
+		}
 		
 	}
+	
+		
+	private void put(Node n) {
+		
+	}
+		
+	private Node get(int i) {
+		return null;
+	}
+	
 	
 	private Node getRoot() {
 		return null;
+	}
+	
+	private int getDegree() {
+		return -1;
+	}
+	
+	private void setDegree(int d) {
+		
+	}
+	
+	private void setEnd() {
+		
+	}
+	
+	private int getEnd() {
+		return -1;
 	}
 	
 }
