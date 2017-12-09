@@ -37,12 +37,20 @@ public class BTree {
 		// check
 	}
 
-	public int BtreeSearch(int x, int k) {
+	public int BtreeSearch(BTreeNode, int k) {
+		int i = 0;
+		while (i < )
+//		i = 0
+//			    while i < x.n and k > x.keyi
+//			        i = i + 1
+//			    if i < x.n and k == x.keyi
+//			        return (x,i)
+//			    elseif x.leaf
+//			        return NIL
+//			    else
+//			        DISK-READ(x.ci)
+//			        return B-Tree-Search(x.ci,k)
 		return 0;
-		// TODO
-		// THIS METHOD IS USELESS APPARENTLY
-		//
-		//  OH NO
 	}
 
 	public void BtreeSplitChild(BTreeNode parent, BTreeNode split, int index) throws IOException {
@@ -72,17 +80,17 @@ public class BTree {
 	}
 
 	public void BtreeInsert(long kVal) throws IOException {
-//		if (root.atMax()) {
-//			nextNode = root;
-//			root = new BTreeNode(tVal, numNodes++, false, true);
-//			root.childNodes.add(0, nextNode.getIndex());
-//			nextNode.setParent(root.getIndex());
-//			nextNode.setRoot(false);
-//			BtreeSplitChild(root, nextNode, 0);
-//			BtreeInsertNonfull(new treeObject(kVal));
-//		} else {
-//			BtreeInsertNonfull(new treeObject(kVal));
-//		}
+		if (root.atMax()) {
+			nextNode = root;
+			root = new BTreeNode(tVal, numNodes++, false, true);
+			root.childNodes.add(0, nextNode.getIndex());
+			nextNode.setParent(root.getIndex());
+			nextNode.setRoot(false);
+			BtreeSplitChild(root, nextNode, 0);
+			BtreeInsertNonfull(new treeObject(kVal));
+		} else {
+			BtreeInsertNonfull(new treeObject(kVal));
+		}
 		
 //		r = T.root
 //				if r.n == 2t - 1
@@ -96,7 +104,10 @@ public class BTree {
 //			    else
 //			        B-Tree-Insert-Nonfull(r,k)
 	}
-
+	
+//	public void BTreeInsert(long subtree, treeObject key) {
+//		
+//	}
 	private void BtreeInsertNonfull(treeObject key) throws IOException {
 		// Please check
 		boolean search = true;
