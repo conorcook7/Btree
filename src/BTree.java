@@ -7,7 +7,7 @@ import java.util.Arrays;
 
  /**
  * 
- * @author conor cook, zach garner, micheal boyle
+ * @author conor cook, zach garner, michael boyle
  *
  */
 public class BTree {
@@ -41,6 +41,8 @@ public class BTree {
 		return 0;
 		// TODO
 		// THIS METHOD IS USELESS APPARENTLY
+		//
+		//  OH NO
 	}
 
 	public void BtreeSplitChild(BTreeNode parent, BTreeNode split, int index) throws IOException {
