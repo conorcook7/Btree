@@ -94,7 +94,7 @@ public class BTree {
 //			        B-Tree-Split-Child(s,0)
 //			        B-Tree-Insert-Nonfull(s,k)
 //			    else
-//			        B-Tree-Insert-Nonfull(r,k
+//			        B-Tree-Insert-Nonfull(r,k)
 	}
 
 	private void BtreeInsertNonfull(treeObject key) throws IOException {
