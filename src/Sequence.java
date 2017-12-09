@@ -17,7 +17,9 @@ public class Sequence {
 	
 	public String getKey() {
 		return this.key;
-	}	
+	}
 	
 	
 }
+
+

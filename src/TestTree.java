@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
 import java.nio.file.FileAlreadyExistsException;
+import java.util.ArrayList;
 
 
 
@@ -37,37 +38,47 @@ public class TestTree {
 		if (s != null)
 			s.duplicate();
 	    else {
-	    	
+	    	s = new Sequence(key);
+	    	Node current = getRoot();
+	    	while (!current.isLeaf()) {
+	    		current = current.nextNode(s);
+	    	}
+	    	current.add(s);
+	    	balance(current);
 	    }
 	}
 	
 	public Sequence search(String key) {
 		return null;
 	}
+		
 	
-	
-	public class Node {
-		
-		public int index;
-		public Node parent;
-		public Node[] children;
-		public Sequence[] elems;
-		
-		
-		public Node(int index, Node parent, Node[] children, Sequence[] elems) {
-			this.index = index;
-			this.parent = parent;
-			this.children = children;
-			this.elems = elems;
+	private Tuple<Node, Sequence> maybeSearch(String key) {
+		Node current = getRoot();
+		while (!current.isLeaf()) {
+			Sequence s = current.search(key);
+			if (s != null) {
+				return new Tuple<Node, Sequence>(current, s);
+			}
+			current = current.nextNode(key);
 		}
+		Sequence s = current.search(key);
+		if (s != null) {
+			return new Tuple<Node, Sequence>(current, s);
+		}
+		else {
+			return new Tuple<Node, Sequence>(current, null);
+		}
+	}
+	
+	private void balance(Node s) {
 		
 	}
 	
-		
 	private void put(Node n) {
 		
 	}
-		
+	
 	private Node get(int i) {
 		return null;
 	}
@@ -85,14 +96,14 @@ public class TestTree {
 		
 	}
 	
-	private void setEnd() {
-		
-	}
-	
 	private int getEnd() {
 		return -1;
 	}
 	
+	private void setEnd() {
+		
+	}
+				
 }
 
 
