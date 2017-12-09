@@ -72,17 +72,29 @@ public class BTree {
 	}
 
 	public void BtreeInsert(long kVal) throws IOException {
-		if (root.atMax()) {
-			nextNode = root;
-			root = new BTreeNode(tVal, numNodes++, false, true);
-			root.childNodes.add(0, nextNode.getIndex());
-			nextNode.setParent(root.getIndex());
-			nextNode.setRoot(false);
-			BtreeSplitChild(root, nextNode, 0);
-			BtreeInsertNonfull(new treeObject(kVal));
-		} else {
-			BtreeInsertNonfull(new treeObject(kVal));
-		}
+//		if (root.atMax()) {
+//			nextNode = root;
+//			root = new BTreeNode(tVal, numNodes++, false, true);
+//			root.childNodes.add(0, nextNode.getIndex());
+//			nextNode.setParent(root.getIndex());
+//			nextNode.setRoot(false);
+//			BtreeSplitChild(root, nextNode, 0);
+//			BtreeInsertNonfull(new treeObject(kVal));
+//		} else {
+//			BtreeInsertNonfull(new treeObject(kVal));
+//		}
+		
+//		r = T.root
+//				if r.n == 2t - 1
+//			        s = Allocate-Node()
+//			        T.root = s
+//			        s.leaf = FALSE
+//			        s.n = 0
+//			        s.c0 = r
+//			        B-Tree-Split-Child(s,0)
+//			        B-Tree-Insert-Nonfull(s,k)
+//			    else
+//			        B-Tree-Insert-Nonfull(r,k)
 	}
 
 	private void BtreeInsertNonfull(treeObject key) throws IOException {
@@ -281,7 +293,6 @@ public class BTree {
 			maxKeys = (2 * tVal - 1);
 			keyNodes = new ArrayList<treeObject>(2 * tVal - 1);
 			childNodes = new ArrayList<Integer>(2 * tVal);
-
 		}
 
 		/**
