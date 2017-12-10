@@ -3,18 +3,19 @@
 public class GeneBankSearch {
 
 	public static void main(String[] args) {
-		if (!((args.length >= 3 && args.length <= 5) && (Integer.parseInt(args[0]) == 0 || Integer.parseInt(args[0]) == 1))) {
+		//java GeneBankSearch  <btree file> <query file> [<debug level>]
+		
+		if(args.length != 3) {
 			printUsage();
 			return;
 		}
-		if (args.length >= 4 && !(Integer.parseInt(args[3]) > 0)) {
+		
+		if(Integer.parseInt(args[2]) != 0 || Integer.parseInt(args[2]) != 1) {
 			printUsage();
 			return;
 		}
-		if (args.length >= 5 && Integer.parseInt(args[4]) != 0) {
-			printUsage();
-			return;
-		}
+		
+		
 		
 		
 	}
@@ -25,6 +26,6 @@ public class GeneBankSearch {
 	}
 	
 	static void printUsage() {
-		System.out.println("Usage: GeneBankSearch <0/1(no/with Cache)> <btree file> <query file> [<cache size>] [<debug level>]");
+		System.out.println("Usage: GeneBankSearch <btree file> <query file> [0/1<debug level>]");
 	}
 }

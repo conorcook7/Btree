@@ -37,9 +37,9 @@ public class BTree {
 		// check
 	}
 
-	public int BtreeSearch(BTreeNode, int k) {
+	public int BtreeSearch(BTreeNode rootNode, long key) {
 		int i = 0;
-		while (i < )
+		//while (i < )
 //		i = 0
 //			    while i < x.n and k > x.keyi
 //			        i = i + 1
@@ -76,7 +76,6 @@ public class BTree {
 		writeToFile(parent, false);
 		writeToFile(split, false);
 		writeToFile(newChild, false);
-
 	}
 
 	public void BtreeInsert(long kVal) throws IOException {
