@@ -2,6 +2,15 @@
 public class GeneBankSearch {
 
 	public static void main(String[] args) {
+		
+		String pathTree;
+		String pathQuer;
+		Boolean debug;
+		
+		try {
+			
+		}
+		
 		if (!((args.length >= 3 && args.length <= 5) && (args[0] == 0 || args[0] == 1))) {
 			printUsage();
 			return;

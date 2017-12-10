@@ -212,6 +212,7 @@ public class TestTree {
 		}
 	}
 	
+	
 	private int keyIndex(ArrayList<Sequence> elems, String key) {
 		for (int i = 0; i < elems.size(); i++) {
 			if (key.compareTo(elems.get(i).getKey()) < 0)

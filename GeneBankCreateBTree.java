@@ -29,7 +29,6 @@ public class GeneBankCreateBTree {
 	 */
 	public static void parseCommandLineArgs(String[] args){
 		
-		int cache = 0;
 		int degree = 0;
 		File myFile = null;
 		int seqLength = 0;
@@ -39,7 +38,7 @@ public class GeneBankCreateBTree {
 		for (int i = 0; i < args.length; i++){
 			switch(i){
 			
-			case 0: 
+			case 0:
 				try{
 					cache = Integer.parseInt(args[i]);
 				}catch(NumberFormatException e){
