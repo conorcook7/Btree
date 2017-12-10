@@ -21,7 +21,7 @@ public class TestTree {
 		File f = new File(path);
 		this.file = new RandomAccessFile(f, "rw");
 	}
-	
+	//
 	public TestTree(String path, int degree) throws FileAlreadyExistsException {
 		File f = new File(path);
 		if (f.isFile()) {

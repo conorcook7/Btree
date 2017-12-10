@@ -82,7 +82,7 @@ public class Node {
 	public void addChild(Node n, int i) {
 		children.add(i, n.index);
 	}
-	
+	//
 	public Integer indexOf(Sequence s) {
 		for (int i = 0; i < elems.size(); i++) {
 			if (elems.get(i).equals(s))
