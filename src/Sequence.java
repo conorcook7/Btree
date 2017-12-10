@@ -8,9 +8,15 @@ public class Sequence {
 	
 	public Sequence(String key) {
 		this.key = key;
-		this.duplicates = 1;
+		this.duplicates = 0;
 	}
 	
+	public Sequence(String key, int duplicates) {
+		this.key = key;
+		this.duplicates = duplicates;
+	}
+	
+
 	public void duplicate() {
 		this.duplicates++;
 	}

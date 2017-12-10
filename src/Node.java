@@ -4,14 +4,12 @@ import java.util.ArrayList;
 public class Node {
 	
 	
-	private Long index;
 	private Long parent;
 	private ArrayList<Long> children;
 	private ArrayList<Sequence> elems;
 	
 	
-	public Node(Long index, Long parent, ArrayList<Long> children, ArrayList<Sequence> elems) {
-		this.index = index;
+	public Node(Long parent, ArrayList<Long> children, ArrayList<Sequence> elems) {
 		this.parent = parent;
 		this.children = children;
 		this.elems = elems;
@@ -22,11 +20,11 @@ public class Node {
 	}
 	
 	public void add(String key) {
-		
+		elems.add(nextIndex(key), new Sequence(key));
 	}
 	
 	public void add(Sequence s) {
-		
+		elems.add(nextIndex(s.getKey()), s);
 	}
 	
 	public Sequence search(String key) {
@@ -71,30 +69,22 @@ public class Node {
 		return this.parent;
 	}
 	
-	public void removeChild(Node n) {
-		for (int i = 0; i < children.size(); i++) {
-			if (children.get(i) == n.index) {
-				children.remove(i);
-			}
-		}
+	public void removeChild(Long n) {
+		children.remove(n);
 	}
 	
-	public void addChild(Node n, int i) {
-		children.add(i, n.index);
+	public void addChild(Long n, int i) {
+		children.add(i, n);
 	}
-	//
-	public Integer indexOf(Sequence s) {
+
+	public Integer indexOf(String key) {
 		for (int i = 0; i < elems.size(); i++) {
-			if (elems.get(i).equals(s))
+			if (elems.get(i).equals(key))
 				return i;
 		}
 		return null;
 	}
-	
-	public Long getIndex() {
-		return this.index;
-	}
-	
+		
 	public Long getChild(int i) {
 		return this.children.get(i);
 	}
