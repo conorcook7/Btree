@@ -70,7 +70,9 @@ public class TestTree {
 	
 	private void splitChild(Node n) {
 		if (n.elemNum() >= 2 * getDegree() - 1) {
-			
+			Tuple<ArrayList<Sequence>, ArrayList<Sequence>> seqs = n.split();
+			ArrayList<Sequence> left = seqs.l();
+			ArrayList<Sequence> right = seqs.r();
 		}
 	}
 	

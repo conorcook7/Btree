@@ -45,6 +45,12 @@ public class Node {
 		return elems.size();
 	}
 	
+	public Tuple<ArrayList<Sequence>, ArrayList<Sequence>> split() {
+		int middle = Math.floorDiv(elems.size(), 2);
+		ArrayList<Sequence> left = (ArrayList<Sequence>) elems.subList(0, middle);
+		ArrayList<Sequence> right = (ArrayList<Sequence>) elems.subList(middle, elems.size() - 1);
+		return new Tuple<ArrayList<Sequence>, ArrayList<Sequence>>(left, right);
+	}
 }
 
 
