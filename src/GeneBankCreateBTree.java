@@ -19,15 +19,18 @@ public class GeneBankCreateBTree {
 			System.exit(1);
 					
 		}
-		
-		parseCommandLineArgs(args);
-		
+		try{
+			parseCommandLineArgs(args);
+		}catch( Exception e ){
+			e.printStackTrace();
+			System.exit(1);
+		}
 	}
 	
 	/**
 	 * Checks command line arguments and prints a message if the arguments are not correct.
 	 */
-	public static void parseCommandLineArgs(String[] args){
+	public static void parseCommandLineArgs(String[] args)throws Exception{
 		
 		int cache = 0;
 		int degree = 0;
@@ -128,15 +131,17 @@ public class GeneBankCreateBTree {
 	 * @param cacheSize
 	 * @param debugLvl
 	 */
-	public static void parseFile(int cache, int degree, File file, int seqLength, int cacheSize, int debugLvl){
-	
-		BTree tree = new BTree(degree, seqLength, sequence );
+	public static void parseFile(int cache, int degree, File file, int seqLength, int cacheSize, int debugLvl)throws Exception{
+		
+		
+		TestTree tree = new TestTree("thefilewewillsaveto", degree);
+
+		
+		
 		try{
 		Scanner scanFile = new Scanner(file);
 		StringBuilder SB;
 		Scanner otherScanner;
-		
-		System.out.println("tree time");
 		
 		String curVal = scanFile.next();
 		
@@ -155,7 +160,7 @@ public class GeneBankCreateBTree {
 				}
 				String dnaSeq = new String(SB);
 				dnaSeq = dnaSeq.replaceAll("\\s+",""); // removes spaces from the string that represents a DNA sequence
-				parseToSubSequence(dnaSeq, seqLength, tree);
+				parseToSubSequence(dnaSeq, seqLength, degree, tree);
 			}
 			if(scanFile.hasNext()) curVal = scanFile.next();
 		}
@@ -172,7 +177,7 @@ public class GeneBankCreateBTree {
 	 * @param seqLength
 	 * 
 	 */
-	public static void parseToSubSequence(String seq, int seqLength, Btree tree){
+	public static void parseToSubSequence(String seq, int seqLength, int degree, TestTree tree){
 		
 		StringBuilder SB = new StringBuilder();
 		
@@ -181,6 +186,7 @@ public class GeneBankCreateBTree {
 				SB.append(seq.charAt(j));
 			}
 			System.out.println(SB.toString());
+			tree.insert(SB.toString());
 			SB.setLength(0);
 		}
 		
