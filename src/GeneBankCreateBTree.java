@@ -11,9 +11,9 @@ public class GeneBankCreateBTree {
  */
 	public static void main(String[] args){
 		
-		if( args.length < 4 || args.length > 6){
+		if( args.length < 3 || args.length > 5){
 			System.out.println("Input should be in the following format:" + "\n" +
-					"<0/1(no/with Cache)> <degree> <gbk file> <sequence length> [<cache size>] [<debug level>]"
+					" <degree> <gbk file> <sequence length> [<cache size>] [<debug level>]"
 					+ "\n The sequence length needs to be beween 0 and 31.");
 			System.exit(1);
 					
@@ -31,7 +31,6 @@ public class GeneBankCreateBTree {
 	 */
 	public static void parseCommandLineArgs(String[] args)throws Exception{
 		
-		int cache = 0;
 		int degree = 0;
 		File myFile = null;
 		int seqLength = 0;
@@ -43,23 +42,6 @@ public class GeneBankCreateBTree {
 			
 			case 0: 
 				try{
-					cache = Integer.parseInt(args[i]);
-				}catch(NumberFormatException e){
-					e.printStackTrace();
-					System.exit(1);
-				}	
-				if(cache == 0){
-					System.out.println("no cashe");
-				}else if(cache == 1){
-					System.out.println("with cashe");
-				}else{
-					System.out.println("arg 1 incompatible");
-					System.exit(1);
-					}
-			break;
-			
-			case 1: 
-				try{
 					degree = Integer.parseInt(args[i]);
 				}catch(NumberFormatException e){
 					e.printStackTrace();
@@ -67,7 +49,7 @@ public class GeneBankCreateBTree {
 				}	
 			break;
 			
-			case 2:
+			case 1:
 				try{
 					myFile = new File(args[i]);
 					if( ! myFile.exists() ) throw new FileNotFoundException("The File " + args[i] + " does not exist."); 
@@ -77,7 +59,7 @@ public class GeneBankCreateBTree {
 				}
 			break;
 			
-			case 3:
+			case 2:
 				try{
 					seqLength = Integer.parseInt(args[i]);
 					if(seqLength > 31 || seqLength < 0){
@@ -89,7 +71,7 @@ public class GeneBankCreateBTree {
 				}
 			break;
 			
-			case 4: 
+			case 3: 
 				try{
 					cacheSize = Integer.parseInt(args[i]);
 				}catch(NumberFormatException e){
@@ -97,13 +79,13 @@ public class GeneBankCreateBTree {
 				}
 			break;
 			
-			case 5:
+			case 4:
 				try{
 					debugLvl = Integer.parseInt(args[i]);
 				}catch(NumberFormatException e){
 					e.printStackTrace();
 				}	
-				if(cache == 0){
+				if(debugLvl == 0){
 					System.out.println("no debug");
 				}else if(debugLvl == 1){
 					System.out.println("with debug");
@@ -118,7 +100,7 @@ public class GeneBankCreateBTree {
 		
 		System.out.println("end of parse");
 		
-		parseFile(cache, degree, myFile, seqLength, cacheSize, debugLvl);
+		parseFile( degree, myFile, seqLength, cacheSize, debugLvl);
 		
 	}
 
@@ -130,10 +112,10 @@ public class GeneBankCreateBTree {
 	 * @param cacheSize
 	 * @param debugLvl
 	 */
-	public static void parseFile(int cache, int degree, File file, int seqLength, int cacheSize, int debugLvl)throws Exception{
+	public static void parseFile( int degree, File file, int seqLength, int cacheSize, int debugLvl)throws Exception{
 		
 		
-		TestTree tree = new TestTree("thefilewewillsaveto", degree, seqLength);
+		TestTree tree = new TestTree("thefilewewillsaveto.txt", degree, seqLength);
 
 		
 		
