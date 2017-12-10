@@ -31,7 +31,7 @@ public class TestTree {
 	private final long PARENT_OFFSET = 0;
 	private final long NUM_CHILDREN_OFFSET = PARENT_OFFSET + LONG_BYTES;
 	private final long NUM_ELEMS_OFFSET = NUM_CHILDREN_OFFSET + INT_BYTES;
-	//private final long ELEMS_START = NUM_ELEMS_OFFSET + INT_BYTES;
+	private final long CHILDREN_START = NUM_ELEMS_OFFSET + INT_BYTES;
 	
 	
 	public TestTree(String path) throws FileNotFoundException {
@@ -209,10 +209,6 @@ public class TestTree {
 		}
 	}
 	
-	private boolean isRoot(long n) {
-		return n == getRoot();
-	}
-	
 	private Integer seqLength() {
 		Integer length = null;
 		try {
@@ -232,6 +228,7 @@ public class TestTree {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	private Long getParent(long index) {
 		Long parent = null;
@@ -254,8 +251,45 @@ public class TestTree {
 
 	}
 	
+	private ArrayList<Long> getChildren(long index) {
+		ArrayList<Long> children = new ArrayList<Long>();
+		try {
+			file.seek(index + CHILDREN_START);
+			for (int i = 0; i < getNumChildren(index); i++) {
+				children.add(file.readLong());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return children;
+	}
+	
+	private void setChildren(long index, ArrayList<Long> children) {
+		setNumChildren(index, children.size());
+		try {
+			file.seek(index + CHILDREN_START);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private int getNumChildren(long index) {
+		return -1;
+	}
+	
+	private void setNumChildren(long index, int num) {
+		
+	}
 	
 	
+	
+	private boolean isRoot(long n) {
+		return n == getRoot();
+	}
+
+
+
 }
 
 
