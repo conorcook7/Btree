@@ -30,6 +30,7 @@ public class TestTree {
 			e.printStackTrace();
 		}
 		setDegree(degree);
+		// make empty root node
 	}
 	
 	
@@ -41,14 +42,14 @@ public class TestTree {
 			resSeq.duplicate();
 		else
 			resNode.add(key);
-			splitNode(resNode);
+			splitChild(resNode);
 	}
 	
 	public Sequence search(String key) {
 		return maybeSearch(key).r();
 	}
 	
-	//
+	
 	private Tuple<Node, Sequence> maybeSearch(String key) {
 		return maybeSearchHelper(key, getRoot());
 	}
@@ -57,7 +58,7 @@ public class TestTree {
 		Sequence result = curNode.search(key);
 		if (result != null)
 			return new Tuple<Node, Sequence>(curNode, result);
-		else if (curNode.isLeaf()) 
+		else if (curNode.isLeaf())
 			return new Tuple<Node, Sequence>(curNode, null);
 		else
 			return maybeSearchHelper(key, readNode(curNode.nextIndex(key)));
@@ -67,8 +68,10 @@ public class TestTree {
 		return null;
 	}
 	
-	private void splitNode(Node s) {
-		
+	private void splitChild(Node n) {
+		if (n.elemNum() >= 2 * getDegree() - 1) {
+			
+		}
 	}
 	
 	private void put(Node n) {
@@ -99,6 +102,10 @@ public class TestTree {
 	private void setEnd() {
 		
 	}
+	
+	private boolean isRoot(Node n) {
+		return n.equals(getRoot())
+	;}
 				
 }
 

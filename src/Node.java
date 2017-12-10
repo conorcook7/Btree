@@ -4,13 +4,13 @@ import java.util.ArrayList;
 public class Node {
 	
 	
-	private int index;
-	private int parent;
+	private long index;
+	private long parent;
+	private ArrayList<Long> children;
 	private ArrayList<Sequence> elems;
-	private ArrayList<Integer> children;
 	
 	
-	private Node(int index, int parent, ArrayList<Integer> children, ArrayList<Sequence> elems) {
+	private Node(long index, long parent, ArrayList<Long> children, ArrayList<Sequence> elems) {
 		this.index = index;
 		this.parent = parent;
 		this.children = children;
@@ -33,6 +33,9 @@ public class Node {
 		return null;
 	}
 	
+	public int elemNum() {
+		return elems.size();
+	}
 	
 	public long nextIndex(String key) {
 		for (int i = 0; i < elems.size(); i++) {
