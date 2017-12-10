@@ -35,8 +35,8 @@ public class TestTree {
 	
 	
 	public void insert(String key) {
-		Tuple<Node, Sequence> result = maybeSearch(key);
-		Node resNode = result.l();
+		Tuple<Long, Sequence> result = maybeSearch(key);
+		Node resNode = readNode(result.l());
 		Sequence resSeq = result.r();
 		if (resSeq != null) 
 			resSeq.duplicate();
@@ -50,8 +50,8 @@ public class TestTree {
 	}
 	
 	
-	private Tuple<Node, Sequence> maybeSearch(String key) {
-		return maybeSearchHelper(key, readNode(getRoot()));
+	private Tuple<Long, Sequence> maybeSearch(String key) {
+		return maybeSearchHelper(key, getRoot());
 	}
 	
 	private Tuple<Long, Sequence> maybeSearchHelper(String key, Long curIndex) {
@@ -62,7 +62,7 @@ public class TestTree {
 		else if (curNode.isLeaf())
 			return new Tuple<Long, Sequence>(curIndex, null);
 		else
-			return maybeSearchHelper(key, readNode(curNode.nextIndex(key)));
+			return maybeSearchHelper(key, curNode.getChild(curNode.nextIndex(key)));
 	}
 	
 	private void splitChild(Node n) {

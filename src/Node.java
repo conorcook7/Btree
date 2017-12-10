@@ -94,6 +94,10 @@ public class Node {
 	public Long getIndex() {
 		return this.index;
 	}
+	
+	public Long getChild(int i) {
+		return this.children.get(i);
+	}
 }
 
 
