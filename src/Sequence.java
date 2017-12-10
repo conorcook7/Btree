@@ -31,10 +31,16 @@ public class Sequence {
 	
 	//clean args
 	
-	// BTree myTree = new BTree(args[1]); 
+	// BTree myTree = new BTree(args[1]);
+	
 	//while (scan.hasNext()) {
-	//	System.out.println(myTree.search(scan.nextLine()));
-	//}
+	//    String next = scan.nextLine()
+	//    Sequence result = myTree.search(next);
+	//    if (result == null) {
+	//        System.out.println(next + ": 0");
+	//    else {
+	//    	System.out.println(result);
+	//    }
 	
 	//other options etc
 	

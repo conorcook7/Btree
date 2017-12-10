@@ -64,7 +64,6 @@ public class TestTree {
 			return maybeSearchHelper(key, readNode(curNode.nextIndex(key)));
 	}
 	
-	
 	private void splitChild(Node n) {
 		if (n.elemNum() >= 2 * getDegree() - 1) {
 			Tuple<ArrayList<Sequence>, ArrayList<Sequence>> seqs = n.split();
