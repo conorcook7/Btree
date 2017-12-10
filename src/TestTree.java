@@ -51,7 +51,7 @@ public class TestTree {
 	
 	
 	private Tuple<Node, Sequence> maybeSearch(String key) {
-		return maybeSearchHelper(key, getRoot());
+		return maybeSearchHelper(key, readNode(getRoot()));
 	}
 	
 	private Tuple<Node, Sequence> maybeSearchHelper(String key, Node curNode) {
@@ -76,11 +76,17 @@ public class TestTree {
 			parent.add(middle);
 			parent.removeChild(n);
 			int middleIndex = parent.indexOf(middle);
+			Node newLeft = createNode(parent, null/****/, left);
+			Node newRight = createNode(parent, null/****/, right);
 			
-			parent.addChild(createNode(parent, null/****/, left), middleIndex);
-			parent.addChild(createNode(parent, null/****/, right), middleIndex + 1);
+			parent.addChild(newLeft, middleIndex);
+			parent.addChild(newRight, middleIndex + 1);
 			
+			writeNode(newLeft);
+			writeNode(newRight);
+			writeNode(parent);
 			
+			splitChild(parent);
 		}
 	}
 	
@@ -97,7 +103,7 @@ public class TestTree {
 	}
 	
 	
-	private long getRoot() {
+	private Long getRoot() {
 		return null;
 	}
 	

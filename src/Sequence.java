@@ -15,9 +15,25 @@ public class Sequence {
 		this.duplicates++;
 	}
 	
+	public int getDuplicates() {
+		return this.duplicates;
+	}
+	
 	public String getKey() {
 		return this.key;
 	}
+	
+	
+	
+	public String toString() {
+		return key + ": " + getDuplicates();
+	}
+	
+	
+	//while (scan.hasNext()) {
+	//	System.out.println(myTree.search(scan.nextLine()));
+	//}
+	
 	
 	
 }
