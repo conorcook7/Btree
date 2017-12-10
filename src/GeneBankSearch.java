@@ -21,24 +21,17 @@ public class GeneBankSearch {
 		File queryFile = new File(query);
 		TestTree myTree = new TestTree(btree);
 		
-		Scanner scanQ = new Scanner(queryFile);
+		Scanner scanQ = new Scanner(queryFile);		
 		
-		while(scanQ.hasNextLine()) {
-			System.out.println(myTree.search(scanQ.nextLine()));
+		while (scanQ.hasNextLine()) {
+		    String next = scanQ.nextLine();
+		    Sequence result = myTree.search(next);
+		    if (result == null) {
+		        System.out.println(next + ": 0");
+		    }else {
+		    	System.out.println(result);
+		    }
 		}
-		
-		
-		
-		//while (scan.hasNext()) {
-		//    String next = scan.nextLine()
-		//    Sequence result = myTree.search(next);
-		//    if (result == null) {
-		//        System.out.println(next + ": 0");
-		//    else {
-		//    	System.out.println(result);
-		//    }
-		
-		
 	}
 
 	
