@@ -9,24 +9,27 @@ import java.util.Scanner;
  */
 public class GeneBankSearch {
 
+	
 	public static void main(String[] args) throws FileNotFoundException {
-		//java GeneBankSearch  <btree file> <query file> [<debug level>]
 		
-		if(args.length != 3) {
+		String treePath;
+		String querPath;
+		boolean debug;
+		
+		try {
+			treePath = args[0];
+			querPath = args[1];
+			if (args.length > 2)
+				debug = args[2] == "1";
+		} catch(Exception e) {
 			printUsage();
 			return;
 		}
 		
-		if(Integer.parseInt(args[2]) != 0 && Integer.parseInt(args[2]) != 1) {
-			printUsage();
-			return;
-		}
-		String btree = args[0];
-		String query = args[1];
-		File queryFile = new File(query);
-		TestTree myTree = new TestTree(btree);
+		TestTree myTree = new TestTree(treePath);
+		File queryFile = new File(querPath);
 		
-		Scanner scanQ = new Scanner(queryFile);		
+		Scanner scanQ = new Scanner(queryFile);
 		
 		while (scanQ.hasNextLine()) {
 		    String next = scanQ.nextLine();
