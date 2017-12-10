@@ -37,12 +37,20 @@ public class BTree {
 		// check
 	}
 
-	public int BtreeSearch(int x, int k) {
+	public int BtreeSearch(BTreeNode, int k) {
+		int i = 0;
+		while (i < )
+//		i = 0
+//			    while i < x.n and k > x.keyi
+//			        i = i + 1
+//			    if i < x.n and k == x.keyi
+//			        return (x,i)
+//			    elseif x.leaf
+//			        return NIL
+//			    else
+//			        DISK-READ(x.ci)
+//			        return B-Tree-Search(x.ci,k)
 		return 0;
-		// TODO
-		// THIS METHOD IS USELESS APPARENTLY
-		//
-		//  OH NO
 	}
 
 	public void BtreeSplitChild(BTreeNode parent, BTreeNode split, int index) throws IOException {
@@ -83,8 +91,23 @@ public class BTree {
 		} else {
 			BtreeInsertNonfull(new treeObject(kVal));
 		}
+		
+//		r = T.root
+//				if r.n == 2t - 1
+//			        s = Allocate-Node()
+//			        T.root = s
+//			        s.leaf = FALSE
+//			        s.n = 0
+//			        s.c0 = r
+//			        B-Tree-Split-Child(s,0)
+//			        B-Tree-Insert-Nonfull(s,k)
+//			    else
+//			        B-Tree-Insert-Nonfull(r,k)
 	}
-
+	
+//	public void BTreeInsert(long subtree, treeObject key) {
+//		
+//	}
 	private void BtreeInsertNonfull(treeObject key) throws IOException {
 		// Please check
 		boolean search = true;
@@ -281,7 +304,6 @@ public class BTree {
 			maxKeys = (2 * tVal - 1);
 			keyNodes = new ArrayList<treeObject>(2 * tVal - 1);
 			childNodes = new ArrayList<Integer>(2 * tVal);
-
 		}
 
 		/**
