@@ -5,7 +5,11 @@ import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
 
 
-
+/**
+ * 
+ * @author conor cook, zach garner, michael boyle
+ *
+ */
 @SuppressWarnings("unused")
 public class TestTree {
 

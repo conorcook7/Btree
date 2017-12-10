@@ -2,6 +2,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author conor cook, zach garner, michael boyle
+ *
+ */
 public class GeneBankSearch {
 
 	public static void main(String[] args) throws FileNotFoundException {
