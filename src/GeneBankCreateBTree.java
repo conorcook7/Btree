@@ -134,7 +134,7 @@ public class GeneBankCreateBTree {
 	public static void parseFile(int cache, int degree, File file, int seqLength, int cacheSize, int debugLvl)throws Exception{
 		
 		
-		TestTree tree = new TestTree("thefilewewillsaveto", degree);
+		TestTree tree = new TestTree("thefilewewillsaveto", degree, seqLength);
 
 		
 		

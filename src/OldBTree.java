@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @author conor cook, zach garner, michael boyle
  *
  */
-public class BTree {
+public class OldBTree {
 
 	private BTreeNode root, nextNode, curNode;
 	private int numNodes, seqL;
@@ -26,7 +26,7 @@ public class BTree {
 	 * @param seq
 	 * @throws FileNotFoundException
 	 */
-	public BTree(int t, int seqLength/*, long seq*/) throws FileNotFoundException {
+	public OldBTree(int t, int seqLength/*, long seq*/) throws FileNotFoundException {
 		seqL = seqLength;
 		//sequence = seq;
 		tVal = t;
