@@ -28,23 +28,6 @@ public class Sequence {
 	public String toString() {
 		return key + ": " + getDuplicates();
 	}
-	
-	// 
-	//clean args
-	
-	// BTree myTree = new BTree(args[1]); 
-	
-	//while (scan.hasNext()) {
-	//    String next = scan.nextLine()
-	//    Sequence result = myTree.search(next);
-	//    if (result == null) {
-	//        System.out.println(next + ": 0");
-	//    else {
-	//    	System.out.println(result);
-	//    }
-	
-	//other options etc
-	
 }
 
 
