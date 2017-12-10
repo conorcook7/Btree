@@ -32,7 +32,7 @@ public class Sequence {
 	//
 	//clean args
 	
-	// BTree myTree = new BTree(args[1]);
+	// BTree myTree = new BTree(args[1]); 
 	
 	//while (scan.hasNext()) {
 	//    String next = scan.nextLine()
