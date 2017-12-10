@@ -34,44 +34,40 @@ public class TestTree {
 	
 	
 	public void insert(String key) {
-		Sequence s = search(key);
-		if (s != null)
-			s.duplicate();
-	    else {
-	    	s = new Sequence(key);
-	    	Node current = getRoot();
-	    	while (!current.isLeaf()) {
-	    		current = current.nextNode(s);
-	    	}
-	    	current.add(s);
-	    	balance(current);
-	    }
+		Tuple<Node, Sequence> result = maybeSearch(key);
+		Node resNode = result.l();
+		Sequence resSeq = result.r();
+		if (resSeq != null) 
+			resSeq.duplicate();
+		else
+			resNode.add(key);
+			splitNode(resNode);
 	}
 	
 	public Sequence search(String key) {
+		return maybeSearch(key).r();
+	}
+	
+	//
+	private Tuple<Node, Sequence> maybeSearch(String key) {
+		return maybeSearchHelper(key, getRoot());
+	}
+	
+	private Tuple<Node, Sequence> maybeSearchHelper(String key, Node curNode) {
+		Sequence result = curNode.search(key);
+		if (result != null)
+			return new Tuple<Node, Sequence>(curNode, result);
+		else if (curNode.isLeaf()) 
+			return new Tuple<Node, Sequence>(curNode, null);
+		else
+			return maybeSearchHelper(key, readNode(curNode.nextIndex(key)));
+	}
+	
+	private Node readNode(long index) {
 		return null;
 	}
-		
 	
-	private Tuple<Node, Sequence> maybeSearch(String key) {
-		Node current = getRoot();
-		while (!current.isLeaf()) {
-			Sequence s = current.search(key);
-			if (s != null) {
-				return new Tuple<Node, Sequence>(current, s);
-			}
-			current = current.nextNode(key);
-		}
-		Sequence s = current.search(key);
-		if (s != null) {
-			return new Tuple<Node, Sequence>(current, s);
-		}
-		else {
-			return new Tuple<Node, Sequence>(current, null);
-		}
-	}
-	
-	private void balance(Node s) {
+	private void splitNode(Node s) {
 		
 	}
 	

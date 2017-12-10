@@ -5,12 +5,12 @@ public class Node {
 	
 	
 	private int index;
-	private Node parent;
+	private int parent;
 	private ArrayList<Sequence> elems;
-	private ArrayList<Node> children;
+	private ArrayList<Integer> children;
 	
 	
-	private Node(int index, Node parent, ArrayList<Node> children, ArrayList<Sequence> elems) {
+	private Node(int index, int parent, ArrayList<Integer> children, ArrayList<Sequence> elems) {
 		this.index = index;
 		this.parent = parent;
 		this.children = children;
@@ -18,15 +18,11 @@ public class Node {
 	}
 	
 	public boolean isLeaf() {
-		return this.children == null;
-	}
-	
-	public Node nextNode(String key) {
-		return children.get(nextIndex(key));
+		return this.children.size() == 0;
 	}
 	
 	public void add(String key) {
-		elems.add(nextIndex(key), new Sequence(key));
+		
 	}
 	
 	public Sequence search(String key) {
@@ -38,7 +34,7 @@ public class Node {
 	}
 	
 	
-	private int nextIndex(String key) {
+	public long nextIndex(String key) {
 		for (int i = 0; i < elems.size(); i++) {
 			if (key.compareTo(elems.get(i).getKey()) < 0)
 				return i;
