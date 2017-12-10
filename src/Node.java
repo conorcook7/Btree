@@ -4,13 +4,13 @@ import java.util.ArrayList;
 public class Node {
 	
 	
-	private long index;
-	private long parent;
+	private Long index;
+	private Long parent;
 	private ArrayList<Long> children;
 	private ArrayList<Sequence> elems;
 	
 	
-	public Node(long index, long parent, ArrayList<Long> children, ArrayList<Sequence> elems) {
+	public Node(Long index, Long parent, ArrayList<Long> children, ArrayList<Sequence> elems) {
 		this.index = index;
 		this.parent = parent;
 		this.children = children;
@@ -41,7 +41,7 @@ public class Node {
 		return elems.size();
 	}
 	
-	public long nextIndex(String key) {
+	public int nextIndex(String key) {
 		for (int i = 0; i < elems.size(); i++) {
 			if (key.compareTo(elems.get(i).getKey()) < 0)
 				return i;
@@ -56,11 +56,18 @@ public class Node {
 		return new Tuple<ArrayList<Sequence>, ArrayList<Sequence>>(left, right);
 	}
 	
+	public Tuple<ArrayList<Long>, ArrayList<Long>> splitChildren() {
+		int middle = Math.floorDiv(children.size(), 2);
+		ArrayList<Long> left = (ArrayList<Long>) children.subList(0, middle);
+		ArrayList<Long> right = (ArrayList<Long>) children.subList(middle + 1, children.size() - 1);
+		return new Tuple<ArrayList<Long>, ArrayList<Long>>(left, right);
+	}
+	
 	public Sequence middle() {
 		return elems.get(Math.floorDiv(elems.size(), 2));
 	}
 	
-	public long getParent() {
+	public Long getParent() {
 		return this.parent;
 	}
 	
@@ -84,9 +91,9 @@ public class Node {
 		return null;
 	}
 	
-	public long getIndex() {
-		return this.index
-;	}
+	public Long getIndex() {
+		return this.index;
+	}
 }
 
 

@@ -54,12 +54,13 @@ public class TestTree {
 		return maybeSearchHelper(key, readNode(getRoot()));
 	}
 	
-	private Tuple<Node, Sequence> maybeSearchHelper(String key, Node curNode) {
+	private Tuple<Long, Sequence> maybeSearchHelper(String key, Long curIndex) {
+		Node curNode = readNode(curIndex);
 		Sequence result = curNode.search(key);
 		if (result != null)
-			return new Tuple<Node, Sequence>(curNode, result);
+			return new Tuple<Long, Sequence>(curIndex, result);
 		else if (curNode.isLeaf())
-			return new Tuple<Node, Sequence>(curNode, null);
+			return new Tuple<Long, Sequence>(curIndex, null);
 		else
 			return maybeSearchHelper(key, readNode(curNode.nextIndex(key)));
 	}
@@ -67,16 +68,19 @@ public class TestTree {
 	private void splitChild(Node n) {
 		if (n.elemNum() >= 2 * getDegree() - 1) {
 			Tuple<ArrayList<Sequence>, ArrayList<Sequence>> seqs = n.split();
+			Tuple<ArrayList<Long>, ArrayList<Long>> children = n.splitChildren();
 			ArrayList<Sequence> left = seqs.l();
 			ArrayList<Sequence> right = seqs.r();
+			ArrayList<Long> leftChildren = children.l();
+			ArrayList<Long> rightChildren = children.r();
 			Sequence middle = n.middle();
 			Node parent = readNode(n.getParent());
 			
 			parent.add(middle);
 			parent.removeChild(n);
 			int middleIndex = parent.indexOf(middle);
-			Node newLeft = createNode(parent.getIndex(), null/****/, left);
-			Node newRight = createNode(parent.getIndex(), null/****/, right);
+			Node newLeft = createNode(parent.getIndex(), leftChildren, left);
+			Node newRight = createNode(parent.getIndex(), rightChildren, right);
 			
 			parent.addChild(newLeft, middleIndex);
 			parent.addChild(newRight, middleIndex + 1);
@@ -94,7 +98,7 @@ public class TestTree {
 		return null; //make sure to write node
 	}
 	
-	private Node readNode(long index) {
+	private Node readNode(Long index) {
 		return null;
 	}
 	
@@ -124,8 +128,8 @@ public class TestTree {
 	}
 	
 	private boolean isRoot(Node n) {
-		return n.equals(getRoot())
-	;}
+		return n.getIndex().equals(getRoot());
+	}
 				
 }
 
