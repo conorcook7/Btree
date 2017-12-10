@@ -21,7 +21,7 @@ public class TestTree {
 		File f = new File(path);
 		this.file = new RandomAccessFile(f, "rw");
 	}
-	//
+	
 	public TestTree(String path, int degree) throws FileAlreadyExistsException {
 		File f = new File(path);
 		if (f.isFile()) {
@@ -99,7 +99,8 @@ public class TestTree {
 	
 	private Node createNode(Long parent, ArrayList<Long> children, ArrayList<Sequence> seqs) {
 		Node newNode = new Node(getEnd(), parent, children, seqs);
-		return null; //make sure to write node
+		writeNode(newNode);
+		return newNode;
 	}
 	
 	private Node readNode(Long index) {
