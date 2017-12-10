@@ -10,7 +10,7 @@ public class Node {
 	private ArrayList<Sequence> elems;
 	
 	
-	private Node(long index, long parent, ArrayList<Long> children, ArrayList<Sequence> elems) {
+	public Node(long index, long parent, ArrayList<Long> children, ArrayList<Sequence> elems) {
 		this.index = index;
 		this.parent = parent;
 		this.children = children;
@@ -83,6 +83,10 @@ public class Node {
 		}
 		return null;
 	}
+	
+	public long getIndex() {
+		return this.index
+;	}
 }
 
 

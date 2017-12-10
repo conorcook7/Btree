@@ -30,7 +30,7 @@ public class TestTree {
 			e.printStackTrace();
 		}
 		setDegree(degree);
-		// make empty root node
+		createNode(null, null, null);
 	}
 	
 	
@@ -76,8 +76,8 @@ public class TestTree {
 			parent.add(middle);
 			parent.removeChild(n);
 			int middleIndex = parent.indexOf(middle);
-			Node newLeft = createNode(parent, null/****/, left);
-			Node newRight = createNode(parent, null/****/, right);
+			Node newLeft = createNode(parent.getIndex(), null/****/, left);
+			Node newRight = createNode(parent.getIndex(), null/****/, right);
 			
 			parent.addChild(newLeft, middleIndex);
 			parent.addChild(newRight, middleIndex + 1);
@@ -90,7 +90,8 @@ public class TestTree {
 		}
 	}
 	
-	private Node createNode(Node parent, ArrayList<Node> children, ArrayList<Sequence> seqs) {
+	private Node createNode(Long parent, ArrayList<Long> children, ArrayList<Sequence> seqs) {
+		Node newNode = new Node(getEnd(), parent, children, seqs);
 		return null; //make sure to write node
 	}
 	
@@ -115,8 +116,8 @@ public class TestTree {
 		
 	}
 	
-	private int getEnd() {
-		return -1;
+	private Long getEnd() {
+		return null;
 	}
 	
 	private void setEnd() {
