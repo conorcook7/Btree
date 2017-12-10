@@ -8,7 +8,7 @@ public class Sequence {
 	
 	public Sequence(String key) {
 		this.key = key;
-		this.duplicates = 0;
+		this.duplicates = 1;
 	}
 	
 	public void duplicate() {

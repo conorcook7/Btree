@@ -25,6 +25,10 @@ public class Node {
 		
 	}
 	
+	public void add(Sequence s) {
+		
+	}
+	
 	public Sequence search(String key) {
 		for (Sequence elem : elems) {
 			if (elem.getKey() == key)
@@ -48,8 +52,36 @@ public class Node {
 	public Tuple<ArrayList<Sequence>, ArrayList<Sequence>> split() {
 		int middle = Math.floorDiv(elems.size(), 2);
 		ArrayList<Sequence> left = (ArrayList<Sequence>) elems.subList(0, middle);
-		ArrayList<Sequence> right = (ArrayList<Sequence>) elems.subList(middle, elems.size() - 1);
+		ArrayList<Sequence> right = (ArrayList<Sequence>) elems.subList(middle + 1, elems.size() - 1);
 		return new Tuple<ArrayList<Sequence>, ArrayList<Sequence>>(left, right);
+	}
+	
+	public Sequence middle() {
+		return elems.get(Math.floorDiv(elems.size(), 2));
+	}
+	
+	public long getParent() {
+		return this.parent;
+	}
+	
+	public void removeChild(Node n) {
+		for (int i = 0; i < children.size(); i++) {
+			if (children.get(i) == n.index) {
+				children.remove(i);
+			}
+		}
+	}
+	
+	public void addChild(Node n, int i) {
+		children.add(i, n.index);
+	}
+	
+	public Integer indexOf(Sequence s) {
+		for (int i = 0; i < elems.size(); i++) {
+			if (elems.get(i).equals(s))
+				return i;
+		}
+		return null;
 	}
 }
 

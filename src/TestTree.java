@@ -64,28 +64,40 @@ public class TestTree {
 			return maybeSearchHelper(key, readNode(curNode.nextIndex(key)));
 	}
 	
-	private Node readNode(long index) {
-		return null;
-	}
 	
 	private void splitChild(Node n) {
 		if (n.elemNum() >= 2 * getDegree() - 1) {
 			Tuple<ArrayList<Sequence>, ArrayList<Sequence>> seqs = n.split();
 			ArrayList<Sequence> left = seqs.l();
 			ArrayList<Sequence> right = seqs.r();
+			Sequence middle = n.middle();
+			Node parent = readNode(n.getParent());
+			
+			parent.add(middle);
+			parent.removeChild(n);
+			int middleIndex = parent.indexOf(middle);
+			
+			parent.addChild(createNode(parent, null/****/, left), middleIndex);
+			parent.addChild(createNode(parent, null/****/, right), middleIndex + 1);
+			
+			
 		}
 	}
 	
-	private void put(Node n) {
-		
+	private Node createNode(Node parent, ArrayList<Node> children, ArrayList<Sequence> seqs) {
+		return null; //make sure to write node
 	}
 	
-	private Node get(int i) {
+	private Node readNode(long index) {
 		return null;
 	}
 	
+	private void writeNode(Node n) {
+		
+	}
 	
-	private Node getRoot() {
+	
+	private long getRoot() {
 		return null;
 	}
 	
