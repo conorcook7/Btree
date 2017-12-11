@@ -5,6 +5,7 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -30,6 +31,8 @@ public class TestTree {
 	
 	public TestTree(String path) throws FileNotFoundException {
 		File f = new File(path);
+		if (!f.exists())
+			throw new FileNotFoundException();
 		this.file = new RandomAccessFile(f, "rw");
 	}
 	
@@ -56,14 +59,14 @@ public class TestTree {
 		Tuple<Node, Integer> result = maybeSearch(key);
 		Node resNode = result.l();
 		Integer resIndex = result.r();
+				
+		ArrayList<Sequence> elems = resNode.getElems();
 		
 		if (resIndex != null) {
-			ArrayList<Sequence> elems = resNode.getElems();
-			elems.add(resIndex, new Sequence(key));
+			elems.get(search(key, resNode)).duplicate();
 			resNode.setElems(elems);
 		}
 		else {
-			ArrayList<Sequence> elems = resNode.getElems();
 			elems.add(keyIndex(elems, key), new Sequence(key));
 			resNode.setElems(elems);
 		}
@@ -74,8 +77,10 @@ public class TestTree {
 		Tuple<Node, Integer> result = maybeSearch(key);
 		Node resNode = result.l();
 		Integer resIndex = result.r();
-		
-		return resNode.getElems().get(resIndex);
+		if (resIndex == null)
+			return null;
+		else
+			return resNode.getElems().get(resIndex);
 	}
 	
 	
@@ -145,7 +150,7 @@ public class TestTree {
 	}
 	
 	
-	private Node getRoot() {
+	public Node getRoot() {
 		Node root = null;
 		try {
 			file.seek(ROOT_INDEX);
@@ -260,7 +265,7 @@ public class TestTree {
 		private final long NUM_ELEMS_OFFSET = NUM_CHILDREN_OFFSET + INT_BYTES;
 		private final long CHILDREN_START = NUM_ELEMS_OFFSET + INT_BYTES;
 		private final long ELEMS_START = CHILDREN_START + LONG_BYTES * 2 * getDegree();
-		private final long END_OFFSET = ELEMS_START + (CHAR_BYTES + INT_BYTES) * 2 * getDegree();
+		private final long END_OFFSET = ELEMS_START + (CHAR_BYTES + INT_BYTES) * (2 * getDegree() + 1);
 
 		
 		private Node() {
@@ -320,7 +325,7 @@ public class TestTree {
 		}
 		
 		private int getNumElems() {
-			Integer numElems = null;
+			Integer numElems = 0;
 			try {
 				file.seek(index + NUM_ELEMS_OFFSET);
 				numElems = file.readInt();
@@ -393,6 +398,7 @@ public class TestTree {
 					file.writeChars(elem.getKey());
 					file.writeInt(elem.getDuplicates());
 				}
+				file.seek(index + ELEMS_START);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -407,7 +413,20 @@ public class TestTree {
 	}
 	
 
-
+	public String toString() {
+		StringBuilder b = new StringBuilder();
+		try {
+			file.seek(0);
+			for (int i = 0; i < getEnd(); i++) {
+				b.append(file.readByte());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return b.toString();
+	}
+	
+	
 }
 
 

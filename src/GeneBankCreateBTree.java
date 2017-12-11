@@ -35,7 +35,6 @@ public class GeneBankCreateBTree {
 			e.printStackTrace();
 			return;
 		}
-		System.out.println("done");
 	}
 
 	/**

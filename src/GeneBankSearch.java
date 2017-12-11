@@ -13,27 +13,36 @@ import java.util.Scanner;
  */
 public class GeneBankSearch {
 	
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
 		
 		String treePath;
-		String querPath;
-		boolean debug;
+		String queryPath;
+		boolean debug = false;
 		
 		try {
 			treePath = args[0];
-			querPath = args[1];
+			queryPath = args[1];
 			if (args.length > 2)
 				debug = args[2] == "1";
 		} catch(Exception e) {
 			printUsage();
 			return;
 		}
-		TestTree myTree = new TestTree(treePath);
-		File queryFile = new File(querPath);
-		Scanner scanQ = new Scanner(queryFile);		
+		
+		TestTree myTree = null;
+		File queryFile = null;
+		Scanner scanQ = null;
+		try {
+			myTree = new TestTree(treePath);
+			queryFile = new File(queryPath);
+			scanQ = new Scanner(queryFile);
+						
+		} catch (FileNotFoundException e) {
+			System.out.println("binary file doesn't exist");
+		}
 		
 		while (scanQ.hasNextLine()) {
-		    String next = scanQ.nextLine();
+		    String next = scanQ.nextLine();		    
 		    Sequence result = myTree.search(next);
 		    if (result == null) {
 		        System.out.println(next + ": 0");
@@ -41,6 +50,9 @@ public class GeneBankSearch {
 		    	System.out.println(result);
 		    }
 		}
+		
+		if (debug)
+			System.out.println("Thank you for using debug.");
 	}
 
 	/**
