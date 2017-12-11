@@ -8,7 +8,6 @@ import java.util.Scanner;
  *
  */
 public class GeneBankSearch {
-
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		
@@ -25,10 +24,8 @@ public class GeneBankSearch {
 			printUsage();
 			return;
 		}
-		
 		TestTree myTree = new TestTree(treePath);
 		File queryFile = new File(querPath);
-		
 		Scanner scanQ = new Scanner(queryFile);
 		
 		while (scanQ.hasNextLine()) {
@@ -42,11 +39,20 @@ public class GeneBankSearch {
 		}
 	}
 
-	
+	/**
+	 * 
+	 * @param title
+	 * @param sequence
+	 * @param degree
+	 * @return
+	 */
 	static String binName(String title, int sequence, int degree) {
 		return title + ".gbk.btree.data" + sequence + degree;
 	}
 	
+	/**
+	 * 
+	 */
 	static void printUsage() {
 		System.out.println("Usage: GeneBankSearch <btree file> <query file> [0/1<debug level>]");
 	}
