@@ -1,0 +1,128 @@
+****************
+* Team Programming Project: Bioinformatics (BTree)
+* Matthew Thomas CS321
+* Data Structures, Fall 2017
+* Conor Cook , Zach Garner, Michael Boyle
+**************** 
+
+OVERVIEW:
+
+ This project is to represent the importance of a BTree data
+ structure. We utilize a BTree structure by storing certain 
+ sequences of a DNA string, into nodes that are then placed
+ into this BTree structure. After that we write to disk and 
+ can view the information about each said sequence that you
+ are searching for. 
+
+INCLUDED FILES:
+
+ List the files required for the project with a brief
+ explanation of why each is included.
+
+ e.g. 
+ * Tuple.java - source file
+ * Sequence.java - source file
+ * BTree.java - source file 
+ * GeneBankCreateBTree.java - source file
+ * GeneBankSearch.java - source file
+ * README - this file
+
+
+COMPILING AND RUNNING:
+ 
+ From the directory containing all source files, compile the
+ driver class (and all dependencies) with the commands:
+ $ javac Tuple.java
+ $ javac Sequence.java
+ $ javac BTree.java
+ $ javac GeneBankCreateBTree.java
+ $ javac GeneBankSearch.java
+
+ Run the compiled classes file with the command:
+ $ java GeneBankCreateBTree.java
+ $ java GeneBankSearch.java
+ 
+ When you are given the command to run the program, you will
+ be given command-line arguments to enter. The two classes you 
+ can run have different parameters to be run. The formats are below
+ 
+ Format for GeneBankCreateBTree: 
+ <degree> <gbk file> <sequence length> [0/1<debug level>]
+ 
+ Format for GeneBankSearch:
+ <btree file> <query file> [0/1<debug level>]
+ 
+ Console output will give the results after the programs finish.
+
+
+PROGRAM DESIGN AND IMPORTANT CONCEPTS:
+//TODO
+ Tuple:
+ 
+ Sequence:
+ 
+ BTree:
+ 
+ GeneBankCreateBTree:
+ 
+ GeneBankSearch:
+
+ How they connect/ wrap up
+
+
+//TODO
+
+TESTING:
+
+ We tested the classes first, by using the simple PrintLine checks
+ to correct any easy changes and catch an errors that we could 
+ simply fix. The other testing is that we handled the command line
+ arguments in the sense that if you pass bad information then should
+ safely exit and give the correct printUsage. By no means is this idiot 
+ proof as it has not been exhaustively tested due to time-constraints.
+ 
+ //TODO
+DISCUSSION:
+ //TODO
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

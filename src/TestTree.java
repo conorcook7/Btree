@@ -6,7 +6,6 @@ import java.nio.ByteBuffer;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
 
-
 /**
  * 
  * @author conor cook, zach garner, michael boyle
@@ -15,28 +14,26 @@ import java.util.ArrayList;
 @SuppressWarnings("unused")
 public class TestTree {
 
-	
 	private RandomAccessFile file;
-	
+
 	private final int INT_BYTES = 4;
 	private final int LONG_BYTES = 8;
 	private final int CHAR_BYTES = 2;
-	
+
 	private final long DEGREE_INDEX = 0;
 	private final long SEQ_LENGTH_INDEX = DEGREE_INDEX + INT_BYTES;
 	private final long ROOT_INDEX = SEQ_LENGTH_INDEX + INT_BYTES;
 	private final long END_INDEX = ROOT_INDEX + LONG_BYTES;
-		
-	
+
 	public TestTree(String path) throws FileNotFoundException {
 		File f = new File(path);
 		this.file = new RandomAccessFile(f, "rw");
 	}
-	
+
 	public TestTree(String path, int degree, int sequenceLength) throws FileAlreadyExistsException {
 		File f = new File(path);
 		if (f.isFile()) {
-		    throw new FileAlreadyExistsException("File already exists");         
+			throw new FileAlreadyExistsException("File already exists");
 		}
 		try {
 			f.createNewFile();
@@ -47,29 +44,42 @@ public class TestTree {
 		setDegree(degree);
 		setSeqLength(sequenceLength);
 		setEnd(END_INDEX);
-		
+
 		setRoot(new Node());
 	}
-	
-	
+
 	public void insert(String key) {
 		Tuple<Node, Integer> result = maybeSearch(key);
 		Node resNode = result.l();
+<<<<<<< HEAD
 		Integer resIndex = result.r();
 		
 		if (resIndex != null) {
+=======
+		Sequence resSeq = result.r();
+
+		System.out.println(resNode + " || " + resSeq);
+
+		if (resSeq != null)
+			resSeq.duplicate();
+		else {
+>>>>>>> branch 'master' of https://github.com/Michael-Boyle/proj4
 			ArrayList<Sequence> elems = resNode.getElems();
 			elems.add(resIndex, new Sequence(key));
 			resNode.setElems(elems);
 		}
+<<<<<<< HEAD
 		else {
 			ArrayList<Sequence> elems = resNode.getElems();
 			elems.add(keyIndex(elems, key), new Sequence(key));
 			resNode.setElems(elems);
 		}
+=======
+
+>>>>>>> branch 'master' of https://github.com/Michael-Boyle/proj4
 		splitChild(resNode);
 	}
-	
+
 	public Sequence search(String key) {
 		Tuple<Node, Integer> result = maybeSearch(key);
 		Node resNode = result.l();
@@ -77,34 +87,47 @@ public class TestTree {
 		
 		return resNode.getElems().get(resIndex);
 	}
+<<<<<<< HEAD
 	
 	
 	private Tuple<Node, Integer> maybeSearch(String key) {
+=======
+
+	private Tuple<Node, Sequence> maybeSearch(String key) {
+>>>>>>> branch 'master' of https://github.com/Michael-Boyle/proj4
 		return maybeSearchHelper(key, getRoot());
 	}
+<<<<<<< HEAD
 	
 	private Tuple<Node, Integer> maybeSearchHelper(String key, Node curNode) {
 		Integer resIndex = search(key, curNode);
 		if (resIndex != null)
 			return new Tuple<Node, Integer>(curNode, resIndex);
+=======
+
+	private Tuple<Node, Sequence> maybeSearchHelper(String key, Node curNode) {
+		Sequence result = search(key, curNode);
+		if (result != null)
+			return new Tuple<Node, Sequence>(curNode, result);
+>>>>>>> branch 'master' of https://github.com/Michael-Boyle/proj4
 		else if (isLeaf(curNode))
 			return new Tuple<Node, Integer>(curNode, null);
 		else
 			return maybeSearchHelper(key, curNode.getChildren().get(keyIndex(curNode.getElems(), key)));
 	}
-	
+
 	private void splitChild(Node n) {
 		if (n.getNumElems() >= 2 * getDegree() - 1) {
 			ArrayList<Sequence> elems = n.getElems();
 			ArrayList<Node> children = n.getChildren();
-			
+
 			int middleIndex = Math.floorDiv(elems.size(), 2);
 			Sequence middleSeq = elems.get(middleIndex);
 			ArrayList<Sequence> leftElems = (ArrayList<Sequence>) elems.subList(0, middleIndex);
 			ArrayList<Sequence> rightElems = (ArrayList<Sequence>) elems.subList(middleIndex + 1, elems.size() - 1);
 			ArrayList<Node> leftChildren = (ArrayList<Node>) children.subList(0, middleIndex);
 			ArrayList<Node> rightChildren = (ArrayList<Node>) children.subList(middleIndex + 1, children.size() - 1);
-			
+
 			Node parent;
 			if (getRoot().equals(n)) {
 				ArrayList<Sequence> newRoot = new ArrayList<Sequence>();
@@ -112,22 +135,21 @@ public class TestTree {
 				parent = new Node();
 				parent.setElems(newRoot);
 				setRoot(parent);
-			}
-			else 
+			} else
 				parent = n.getParent();
 			ArrayList<Sequence> parentElems = parent.getElems();
 			ArrayList<Node> parentChildren = parent.getChildren();
-			
+
 			Node newLeft = new Node(n.getIndex());
 			newLeft.setParent(parent);
 			newLeft.setElems(leftElems);
 			Node newRight = new Node();
 			newRight.setParent(parent);
 			newRight.setElems(rightElems);
-			
-			for (Node ln : leftChildren) 
+
+			for (Node ln : leftChildren)
 				ln.setParent(newLeft);
-			for (Node rn : rightChildren) 
+			for (Node rn : rightChildren)
 				rn.setParent(newRight);
 			newLeft.setChildren(leftChildren);
 			newRight.setChildren(rightChildren);
@@ -136,15 +158,14 @@ public class TestTree {
 			parentChildren.remove(n);
 			parentChildren.add(keyIndex(parentElems, leftElems.get(0).getKey()), newLeft);
 			parentChildren.add(keyIndex(parentElems, rightElems.get(0).getKey()), newRight);
-			
+
 			parent.setElems(parentElems);
 			parent.setChildren(parentChildren);
-			
+
 			splitChild(parent);
 		}
 	}
-	
-	
+
 	private Node getRoot() {
 		Node root = null;
 		try {
@@ -156,7 +177,7 @@ public class TestTree {
 		}
 		return root;
 	}
-	
+
 	private void setRoot(Node n) {
 		try {
 			file.seek(ROOT_INDEX);
@@ -165,7 +186,7 @@ public class TestTree {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private Integer getDegree() {
 		Integer degree = null;
 		try {
@@ -176,7 +197,7 @@ public class TestTree {
 		}
 		return degree;
 	}
-	
+
 	private void setDegree(int d) {
 		try {
 			file.seek(DEGREE_INDEX);
@@ -185,7 +206,7 @@ public class TestTree {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private Long getEnd() {
 		Long end = null;
 		try {
@@ -196,7 +217,7 @@ public class TestTree {
 		}
 		return end;
 	}
-	
+
 	private void setEnd(Long end) {
 		try {
 			file.seek(END_INDEX);
@@ -205,7 +226,7 @@ public class TestTree {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private Integer seqLength() {
 		Integer length = null;
 		try {
@@ -216,7 +237,7 @@ public class TestTree {
 		}
 		return length;
 	}
-	
+
 	private void setSeqLength(int length) {
 		try {
 			file.seek(SEQ_LENGTH_INDEX);
@@ -225,8 +246,7 @@ public class TestTree {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	private int keyIndex(ArrayList<Sequence> elems, String key) {
 		for (int i = 0; i < elems.size(); i++) {
 			if (key.compareTo(elems.get(i).getKey()) < 0)
@@ -234,8 +254,13 @@ public class TestTree {
 		}
 		return elems.size();
 	}
+<<<<<<< HEAD
 	
 	private Integer search(String key, Node n) {
+=======
+
+	private Sequence search(String key, Node n) {
+>>>>>>> branch 'master' of https://github.com/Michael-Boyle/proj4
 		ArrayList<Sequence> elems = n.getElems();
 		for (int i = 0; i < elems.size(); i++) {
 			if (elems.get(i).getKey().equals(key))
@@ -243,18 +268,16 @@ public class TestTree {
 		}
 		return null;
 	}
-	
+
 	private boolean isLeaf(Node n) {
 		ArrayList<Node> children = n.getChildren();
 		return children.size() == 0;
 	}
-	
-	
+
 	private class Node {
-		
-		
+
 		long index;
-		
+
 		private final long PARENT_OFFSET = 0;
 		private final long NUM_CHILDREN_OFFSET = PARENT_OFFSET + LONG_BYTES;
 		private final long NUM_ELEMS_OFFSET = NUM_CHILDREN_OFFSET + INT_BYTES;
@@ -262,14 +285,13 @@ public class TestTree {
 		private final long ELEMS_START = CHILDREN_START + LONG_BYTES * 2 * getDegree();
 		private final long END_OFFSET = ELEMS_START + (CHAR_BYTES + INT_BYTES) * 2 * getDegree();
 
-		
 		private Node() {
 			this.index = getEnd();
 			setEnd(getEnd() + END_OFFSET);
 			setNumChildren(0);
 			setNumElems(0);
 		}
-		
+
 		private Node(long index) {
 			this.index = index;
 			if (index == getEnd())
@@ -277,8 +299,7 @@ public class TestTree {
 			setNumChildren(0);
 			setNumElems(0);
 		}
-		
-		
+
 		private Node getParent() {
 			Long parentIndex = null;
 			try {
@@ -289,7 +310,7 @@ public class TestTree {
 			}
 			return new Node(parentIndex);
 		}
-		
+
 		private void setParent(Node parent) {
 			try {
 				file.seek(index + PARENT_OFFSET);
@@ -298,7 +319,7 @@ public class TestTree {
 				e.printStackTrace();
 			}
 		}
-		
+
 		private int getNumChildren() {
 			Integer numChildren = null;
 			try {
@@ -309,7 +330,7 @@ public class TestTree {
 			}
 			return numChildren;
 		}
-		
+
 		private void setNumChildren(int num) {
 			try {
 				file.seek(index + NUM_CHILDREN_OFFSET);
@@ -318,7 +339,7 @@ public class TestTree {
 				e.printStackTrace();
 			}
 		}
-		
+
 		private int getNumElems() {
 			Integer numElems = null;
 			try {
@@ -330,7 +351,7 @@ public class TestTree {
 			return numElems;
 
 		}
-		
+
 		private void setNumElems(int num) {
 			try {
 				file.seek(index + NUM_ELEMS_OFFSET);
@@ -339,7 +360,7 @@ public class TestTree {
 				e.printStackTrace();
 			}
 		}
-		
+
 		private ArrayList<Node> getChildren() {
 			ArrayList<Node> children = new ArrayList<Node>();
 			try {
@@ -353,7 +374,7 @@ public class TestTree {
 			}
 			return children;
 		}
-		
+
 		private void setChildren(ArrayList<Node> children) {
 			try {
 				file.seek(index + CHILDREN_START);
@@ -363,9 +384,9 @@ public class TestTree {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			setNumChildren(children.size());			
+			setNumChildren(children.size());
 		}
-		
+
 		private ArrayList<Sequence> getElems() {
 			ArrayList<Sequence> elems = new ArrayList<Sequence>();
 			try {
@@ -384,7 +405,7 @@ public class TestTree {
 			}
 			return elems;
 		}
-		
+
 		private void setElems(ArrayList<Sequence> elems) {
 			try {
 				file.seek(index + ELEMS_START);
@@ -398,24 +419,16 @@ public class TestTree {
 			}
 			setNumElems(elems.size());
 		}
-		
+
 		private long getIndex() {
 			return this.index;
 		}
 
-		
 	}
+<<<<<<< HEAD
 	
 
+=======
+>>>>>>> branch 'master' of https://github.com/Michael-Boyle/proj4
 
 }
-
-
-
-
-
-
-
-
-
-
