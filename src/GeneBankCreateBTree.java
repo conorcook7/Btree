@@ -3,13 +3,18 @@ import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
 
 /**
- * @author Zachary Garner
+ * This is the primary class to the BTree project.
+ * 
+ * This class is a command line utility to create a 
+ * BTree of nodes holding DNA sequences. This is done
+ * by using the provided gbk.files. This is all 
+ * written and read from disk or from a binary file
+ * 
+ * 
+ * @author Zachary Garner, conor cook, michael boyle
  */
 public class GeneBankCreateBTree {
 
-	/**
-	 * 
-	 */
 	public static void main(String[] args) {
 
 		int degree = 0;
@@ -34,15 +39,16 @@ public class GeneBankCreateBTree {
 
 	}
 
-
 	/**
-	 * @param cache
+	 * This method parses the gbk.file that is given, searches
+	 * for the word, ORIGIN, and then begins logging the sequences
+	 * that follow within that file
+	 * 
 	 * @param degree
 	 * @param file
 	 * @param seqLength
-	 * @param cacheSize
 	 * @param debugLvl
-	 * @throws FileAlreadyExistsException 
+	 * @throws FileAlreadyExistsException
 	 */
 	public static void parseFile(int degree, String file, int seqLength, boolean debugLvl) throws FileAlreadyExistsException {
 
@@ -90,9 +96,14 @@ public class GeneBankCreateBTree {
 	}
 
 	/**
-	 * @param seq
-	 * @param seqLength
+	 * This is a helper method to parseFile()
+	 * -------------------------------------
+	 * Contains the functionality to store the sequence 
+	 * into the btree
 	 * 
+	 * @param seq
+	 * @param degree
+	 * @param tree
 	 */
 	public static void parseToSubSequence(String seq, int degree, TestTree tree) {
 
@@ -107,6 +118,11 @@ public class GeneBankCreateBTree {
 		}
 	}
 
+	/**
+	 * Simple method to create our own version of printUsage
+	 * ------------------------------------------------------
+	 * Contains the correct format for the input of this class
+	 */
 	static void printUsage() {
 		System.out.println("Usage: GeneBankCreatBTree <degree> <gbk file> <sequence length> [0/1<debug level>]");
 	}
