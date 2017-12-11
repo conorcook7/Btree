@@ -1,0 +1,128 @@
+****************
+* Team Programming Project: Bioinformatics (BTree)
+* Matthew Thomas CS321
+* Data Structures, Fall 2017
+* Conor Cook , Zach Garner, Michael Boyle
+**************** 
+
+OVERVIEW:
+
+ This program is an abstract representation of a memory cache 
+ using an ADT doubly linked list.
+
+
+INCLUDED FILES:
+
+ List the files required for the project with a brief
+ explanation of why each is included.
+
+ e.g. 
+ * Cache.java - source file
+ * Test.java - source file
+ * ICache.java - source file 
+ * DLLNode.java - source file
+ * README - this file
+
+
+COMPILING AND RUNNING:
+ 
+ From the directory containing all source files, compile the
+ driver class (and all dependencies) with the commands:
+ $ javac DLLNode.java
+ $ javac ICache.java
+ $ javac Cache.java
+ $ javac Test.java
+
+ Run the compiled class file with the command:
+ $ java Test
+ 
+ When you are given the command to run the program, you will
+ be given command-line arguments to enter. You can enter 2 types.
+ This input gives you a single cache, list the #1, then cache 
+ capacity, then the filename.
+ 
+ Format: [1][cache size 1][FileName.txt]
+ 
+ This input gives you the second option to have two caches. Enter
+ the #2, both cache capacities separately, then the filename.
+ 
+ Format: [1 or 2][cache size 1][cache size 2][FileName.txt]
+ 
+
+ Console output will give the results after the program finishes.
+
+
+PROGRAM DESIGN AND IMPORTANT CONCEPTS:
+
+ This program is decided to create and act in the place of a memory
+ cache. The main way this is done, is we implement the ICache 
+ interface which gives all the rules and we implement the rules
+ of the DLLNode class that gives the structure of a Double Linked 
+ List. Using both of these we are able to add at the front of the 
+ list, and remove anywhere in the list efficiently. 
+ 
+ The way the Cache works is fairly simple. You read in values to populate
+ your cache list. As you read in values, you are always checking if the 
+ next read value is already in the list. If it is, you move it to the 
+ top of the list, if it is not in the list, then you simply add it
+ to the top. If you are using two caches, then everything in cache1
+ is also in cache2, but cache2 holds more than cache1, so the list is 
+ much bigger. If you do not find a value in the cache1, but you do 
+ in cache2, then move it to the top of both lists. 
+ These lists are always keeping the most recent value updated towards the
+ top of the list, which is exactly what caches are designed to do.
+ 
+ All while doing this we are calculating the number of times we find 
+ the same value in a cache and have to update it (This is a HIT), and
+ we calculate how many times we access a cache to search for a value.
+ If we have to search both caches to find a value that was in cache2
+ but not cache1, that only counts as one access, not two accesses. 
+ 
+ As stated before. ICache.java is the Interface that is implemented and gives
+ all the rules for the basic functions of a Cache<T>. DLLNode.java
+ is the class that gives the basic functions of a Double Linked List
+ that are needed for this project. Cache.java is the meat of the Cache 
+ object and has all of the methods and creates a Cache. Test.java is the
+ Driver class used to test the Cache.java class, and can give you 
+ feedback based on what textfile you parse in.
+ 
+ The one idea that I believe could improve this project is implemented
+ Java's very own LinkedList<T> class as it works very well, and would
+ have removed a considerable amount of confusion.
+
+TESTING:
+
+ I tested my program by using the given testing text files that have the 
+ correct values so I could compare my values. These were used in tandem
+ with a series of PrintLines to check my work as I went along. These
+ were extremely helpful as they always gave immediate feedback. This 
+ program can handle bad input to an extent, if the format is incorrect, 
+ it will exit and prompt you to correctly type in the correct format again. 
+ By no means is this idiot proof as it has not been exhaustively tested
+ due to time-constraints. No serious bugs at this time.
+
+
+DISCUSSION:
+ 
+ The were many issues I have encountered on this journey of creating this
+ program. The first main issue I came across was where to start and how
+ I was going to implement my own version of a double-linked list, without
+ using the Java Linked List class that is used and created within Java. 
+ That class is very useful and made this project much more difficult in my 
+ opinion because of it. Secondly, I had issues trying to get my hits and 
+ accesses correctly in exact places to where I was not over or undercounting.
+ On top of that, it was a struggle to understanding what the point of write
+ is if Get does the exact same thing, just returns a value. The Main research 
+ that was done was going through my previous code from DoubleLinkedList from 221
+ and other code as a reference to my syntax. 
+ 
+ The main errors I was getting was always getting a miss access added and it was 
+ due to the fact on the first adding of elements into the L1 and L2 cache, it was
+ counting both as an access, so I had to resolve that issue. Other errors 
+ were mainly logic errors which forced me to write down what I was mentally
+ envisioning. This helped tremendously.
+ 
+ The parts that clicked with me were the methods that were similar to 221 last
+ semester as it was almost review, but with the training wheels off. So either
+ you got it or you didn't. Thankfully, I understood after a little review.
+ 
