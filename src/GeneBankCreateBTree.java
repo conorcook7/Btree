@@ -28,6 +28,7 @@ public class GeneBankCreateBTree {
 			System.out.println("bin associated with gbk already exists");
 		} catch (Exception e) {
 			printUsage();
+			e.printStackTrace();
 			return;
 		}
 
@@ -50,8 +51,6 @@ public class GeneBankCreateBTree {
 
 		TestTree tree = null;
 		tree = new TestTree(binName, degree, seqLength);
-		System.out.println("construct tree");
-		System.out.println("bin associated with gbk already exists");
 
 		Scanner scanFile = null;
 		try {
@@ -65,10 +64,9 @@ public class GeneBankCreateBTree {
 		Scanner otherScanner;
 
 		String curVal = scanFile.next();
-
+				
 		while (scanFile.hasNext()) {
 			if (curVal.equals("ORIGIN")) { // finds the key origin indicating the beginning of the dna sequence
-				System.out.println("Origin found");
 				SB = new StringBuilder();
 
 				while (!curVal.equals("//") && !curVal.equals("N")) {
@@ -104,7 +102,6 @@ public class GeneBankCreateBTree {
 			for (int j = i; j < i + seq.length(); j++) {
 				SB.append(seq.charAt(j));
 			}
-			System.out.println(SB.toString());
 			tree.insert(SB.toString());
 			SB.setLength(0);
 		}

@@ -46,7 +46,9 @@ public class TestTree {
 		}
 		setDegree(degree);
 		setSeqLength(sequenceLength);
-		setRoot(new Node(null, new ArrayList<Node>(), new ArrayList<Sequence>()));
+		setEnd(END_INDEX);
+		
+		setRoot(new Node());
 	}
 	
 	
@@ -54,6 +56,9 @@ public class TestTree {
 		Tuple<Node, Sequence> result = maybeSearch(key);
 		Node resNode = result.l();
 		Sequence resSeq = result.r();
+		
+		System.out.println(resNode + " || " + resSeq);
+		
 		if (resSeq != null) 
 			resSeq.duplicate();
 		else {
@@ -100,7 +105,8 @@ public class TestTree {
 			if (getRoot().equals(n)) {
 				ArrayList<Sequence> newRoot = new ArrayList<Sequence>();
 				newRoot.add(middleSeq);
-				parent = new Node(null, newRoot);
+				parent = new Node();
+				parent.setElems(newRoot);
 				setRoot(parent);
 			}
 			else 
@@ -108,8 +114,12 @@ public class TestTree {
 			ArrayList<Sequence> parentElems = parent.getElems();
 			ArrayList<Node> parentChildren = parent.getChildren();
 			
-			Node newLeft = new Node(n.getIndex(), parent, leftElems);
-			Node newRight = new Node(parent, rightElems);
+			Node newLeft = new Node(n.getIndex());
+			newLeft.setParent(parent);
+			newLeft.setElems(leftElems);
+			Node newRight = new Node();
+			newRight.setParent(parent);
+			newRight.setElems(rightElems);
 			
 			for (Node ln : leftChildren) 
 				ln.setParent(newLeft);
@@ -185,7 +195,7 @@ public class TestTree {
 	
 	private void setEnd(Long end) {
 		try {
-			file.seek(DEGREE_INDEX);
+			file.seek(END_INDEX);
 			file.writeLong(end);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -249,42 +259,19 @@ public class TestTree {
 		private final long END_OFFSET = ELEMS_START + (CHAR_BYTES + INT_BYTES) * 2 * getDegree();
 
 		
+		private Node() {
+			this.index = getEnd();
+			setEnd(getEnd() + END_OFFSET);
+			setNumChildren(0);
+			setNumElems(0);
+		}
+		
 		private Node(long index) {
 			this.index = index;
 			if (index == getEnd())
 				setEnd(getEnd() + END_OFFSET);
-		}
-		
-		private Node(long index, Node parent, ArrayList<Sequence> elems) {
-			this.index = index;
-			this.setParent(parent);
-			this.setElems(elems);
-			setEnd(getEnd() + END_OFFSET);
-			if (index == getEnd())
-				setEnd(getEnd() + END_OFFSET);
-		}
-		
-		private Node(Node parent, ArrayList<Sequence> elems) {
-			this.index = getEnd();
-			this.setParent(parent);
-			this.setElems(elems);
-			setEnd(getEnd() + END_OFFSET);
-		}
-		
-		private Node(Node parent, ArrayList<Node> children, ArrayList<Sequence> elems) {
-			this.index = getEnd();
-			this.setParent(parent);
-			this.setChildren(children);
-			this.setElems(elems);
-			setEnd(getEnd() + END_OFFSET);
-		}
-		
-		private Node(long index, Node parent, ArrayList<Node> children, ArrayList<Sequence> elems) {
-			this.index = index;
-			this.setParent(parent);
-			this.setChildren(children);
-			this.setElems(elems);
-			setEnd(getEnd() + END_OFFSET);
+			setNumChildren(0);
+			setNumElems(0);
 		}
 		
 		
