@@ -5,10 +5,9 @@ import java.nio.file.FileAlreadyExistsException;
 /**
  * This is the primary class to the BTree project.
  * 
- * This class is a command line utility to create a 
- * BTree of nodes holding DNA sequences. This is done
- * by using the provided gbk.files. This is all 
- * written and read from disk or from a binary file
+ * This class is a command line utility to create a BTree of nodes holding DNA
+ * sequences. This is done by using the provided gbk.files. This is all written
+ * and read from disk or from a binary file
  * 
  * 
  * @author Zachary Garner, conor cook, michael boyle
@@ -40,9 +39,8 @@ public class GeneBankCreateBTree {
 	}
 
 	/**
-	 * This method parses the gbk.file that is given, searches
-	 * for the word, ORIGIN, and then begins logging the sequences
-	 * that follow within that file
+	 * This method parses the gbk.file that is given, searches for the word, ORIGIN,
+	 * and then begins logging the sequences that follow within that file
 	 * 
 	 * @param degree
 	 * @param file
@@ -50,7 +48,8 @@ public class GeneBankCreateBTree {
 	 * @param debugLvl
 	 * @throws FileAlreadyExistsException
 	 */
-	public static void parseFile(int degree, String file, int seqLength, boolean debugLvl) throws FileAlreadyExistsException {
+	public static void parseFile(int degree, String file, int seqLength, boolean debugLvl)
+			throws FileAlreadyExistsException {
 
 		String binName = file + ".btree.data." + seqLength + "." + degree;
 		File gbkFile = new File(file);
@@ -65,12 +64,12 @@ public class GeneBankCreateBTree {
 			System.out.println("gbk file not found");
 			e.printStackTrace();
 		}
-		
+
 		StringBuilder SB;
 		Scanner otherScanner;
 
 		String curVal = scanFile.next();
-				
+
 		while (scanFile.hasNext()) {
 			if (curVal.equals("ORIGIN")) { // finds the key origin indicating the beginning of the dna sequence
 				SB = new StringBuilder();
@@ -96,10 +95,8 @@ public class GeneBankCreateBTree {
 	}
 
 	/**
-	 * This is a helper method to parseFile()
-	 * -------------------------------------
-	 * Contains the functionality to store the sequence 
-	 * into the btree
+	 * This is a helper method to parseFile() -------------------------------------
+	 * Contains the functionality to store the sequence into the btree
 	 * 
 	 * @param seq
 	 * @param degree
@@ -120,8 +117,8 @@ public class GeneBankCreateBTree {
 
 	/**
 	 * Simple method to create our own version of printUsage
-	 * ------------------------------------------------------
-	 * Contains the correct format for the input of this class
+	 * ------------------------------------------------------ Contains the correct
+	 * format for the input of this class
 	 */
 	static void printUsage() {
 		System.out.println("Usage: GeneBankCreatBTree <degree> <gbk file> <sequence length> [0/1<debug level>]");
