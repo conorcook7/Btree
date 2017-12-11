@@ -36,7 +36,7 @@ public class GeneBankCreateBTree {
 			e.printStackTrace();
 			return;
 		}
-
+		System.out.println("done");
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class GeneBankCreateBTree {
 				String dnaSeq = new String(SB);
 				dnaSeq = dnaSeq.replaceAll("\\s+", ""); // removes spaces from the string that represents a DNA
 														// sequence
-				parseToSubSequence(dnaSeq, degree, tree);
+				parseToSubSequence(dnaSeq, seqLength, tree);
 			}
 			if (scanFile.hasNext())
 				curVal = scanFile.next();
@@ -105,12 +105,12 @@ public class GeneBankCreateBTree {
 	 * @param degree
 	 * @param tree
 	 */
-	public static void parseToSubSequence(String seq, int degree, TestTree tree) {
+	public static void parseToSubSequence(String seq, int seqLength, TestTree tree) {
 
 		StringBuilder SB = new StringBuilder();
 
-		for (int i = 0; i < seq.length(); i++) {
-			for (int j = i; j < i + seq.length(); j++) {
+		for (int i = 0; i < seq.length() - seqLength; i++) {
+			for (int j = i; j < i + seqLength; j++) {
 				SB.append(seq.charAt(j));
 			}
 			tree.insert(SB.toString());

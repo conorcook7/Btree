@@ -30,7 +30,7 @@ public class GeneBankSearch {
 		}
 		TestTree myTree = new TestTree(treePath);
 		File queryFile = new File(querPath);
-		Scanner scanQ = new Scanner(queryFile);
+		Scanner scanQ = new Scanner(queryFile);		
 		
 		while (scanQ.hasNextLine()) {
 		    String next = scanQ.nextLine();

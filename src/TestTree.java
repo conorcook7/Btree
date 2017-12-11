@@ -53,38 +53,42 @@ public class TestTree {
 	
 	
 	public void insert(String key) {
-		Tuple<Node, Sequence> result = maybeSearch(key);
+		Tuple<Node, Integer> result = maybeSearch(key);
 		Node resNode = result.l();
-		Sequence resSeq = result.r();
+		Integer resIndex = result.r();
 		
-		System.out.println(resNode + " || " + resSeq);
-		
-		if (resSeq != null) 
-			resSeq.duplicate();
-		else {
+		if (resIndex != null) {
 			ArrayList<Sequence> elems = resNode.getElems();
-			elems.add(keyIndex(elems, key), resSeq);
+			elems.add(resIndex, new Sequence(key));
 			resNode.setElems(elems);
 		}
-		
-			splitChild(resNode);
+		else {
+			ArrayList<Sequence> elems = resNode.getElems();
+			elems.add(keyIndex(elems, key), new Sequence(key));
+			resNode.setElems(elems);
+		}
+		splitChild(resNode);
 	}
 	
 	public Sequence search(String key) {
-		return maybeSearch(key).r();
+		Tuple<Node, Integer> result = maybeSearch(key);
+		Node resNode = result.l();
+		Integer resIndex = result.r();
+		
+		return resNode.getElems().get(resIndex);
 	}
 	
 	
-	private Tuple<Node, Sequence> maybeSearch(String key) {
+	private Tuple<Node, Integer> maybeSearch(String key) {
 		return maybeSearchHelper(key, getRoot());
 	}
 	
-	private Tuple<Node, Sequence> maybeSearchHelper(String key, Node curNode) {
-		Sequence result = search(key, curNode);
-		if (result != null)
-			return new Tuple<Node, Sequence>(curNode, result);
+	private Tuple<Node, Integer> maybeSearchHelper(String key, Node curNode) {
+		Integer resIndex = search(key, curNode);
+		if (resIndex != null)
+			return new Tuple<Node, Integer>(curNode, resIndex);
 		else if (isLeaf(curNode))
-			return new Tuple<Node, Sequence>(curNode, null);
+			return new Tuple<Node, Integer>(curNode, null);
 		else
 			return maybeSearchHelper(key, curNode.getChildren().get(keyIndex(curNode.getElems(), key)));
 	}
@@ -231,18 +235,18 @@ public class TestTree {
 		return elems.size();
 	}
 	
-	private Sequence search(String key, Node n) {
+	private Integer search(String key, Node n) {
 		ArrayList<Sequence> elems = n.getElems();
-		for (Sequence elem : elems) {
-			if (elem.getKey() == key)
-				return elem;
+		for (int i = 0; i < elems.size(); i++) {
+			if (elems.get(i).getKey().equals(key))
+				return i;
 		}
 		return null;
 	}
 	
 	private boolean isLeaf(Node n) {
 		ArrayList<Node> children = n.getChildren();
-		return children.size() > 0;
+		return children.size() == 0;
 	}
 	
 	
@@ -402,7 +406,6 @@ public class TestTree {
 		
 	}
 	
-
 
 
 }
