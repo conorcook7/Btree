@@ -1,5 +1,4 @@
 # Btree
-CS321 Final Project
 ****************
 * Team Programming Project: Bioinformatics (BTree)
 * Matthew Thomas CS321
